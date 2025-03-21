@@ -2,7 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:personal_finance/pages/AddTransactionScreen.dart';
 import 'package:personal_finance/database/database_helper.dart';
 import 'package:personal_finance/widgets/summary_card.dart';
+import 'package:personal_finance/pages/LogingRegister.dart' as globals;
 
+//Currency
+Map<String, double> currency = {
+  'USD': 1,
+  'EUR': 0.9,
+  'INR': 85,
+  'KGS':85,
+};
+//
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -18,18 +27,35 @@ class _HomeScreenState extends State<HomeScreen> {
   double _totalIncome = 0.0;
   double _totalExpenses = 0.0;
   double _balance = 0.0;
+  String userEmail = 'user@example.com';
 
   @override
   void initState() {
     super.initState();
     dbHelper = DatabaseHelper();
     _loadData();
+    _getEmailOnce();
   }
 
   // Load transactions and summary data
   void _loadData() {
     _transactionsFuture = _fetchTransactions();
     _fetchSummaryData();
+  }
+
+  double convertCurrency(double amount) {
+    return amount * (currency[globals.currentCurrency] ?? 1.0);
+  }
+
+  void _getEmailOnce() async {
+    if (globals.currentUsername != null) {
+      final email = await dbHelper.getEmailByUsername(globals.currentUsername!);
+      if (email != null) {
+        setState(() {
+          userEmail = email;
+        });
+      }
+    }
   }
 
   // Fetch summary data (income, expenses, balance)
@@ -130,21 +156,21 @@ class _HomeScreenState extends State<HomeScreen> {
               children: [
                 SummaryCard(
                   title: 'Income',
-                  amount: '\$${_totalIncome.toStringAsFixed(2)}',
+                  amount: '${globals.currentCurrency} ${convertCurrency(_totalIncome).toStringAsFixed(2)}',
                   color: Colors.green,
-                  icon: Icons.arrow_downward,
-                ),
-                const SizedBox(height: 12),
-                SummaryCard(
-                  title: 'Expenses',
-                  amount: '\$${_totalExpenses.toStringAsFixed(2)}',
-                  color: Colors.red,
                   icon: Icons.arrow_upward,
                 ),
                 const SizedBox(height: 12),
                 SummaryCard(
+                  title: 'Expenses',
+                  amount: '${globals.currentCurrency} ${convertCurrency(_totalExpenses).toStringAsFixed(2)}',
+                  color: Colors.red,
+                  icon: Icons.arrow_downward,
+                ),
+                const SizedBox(height: 12),
+                SummaryCard(
                   title: 'Balance',
-                  amount: '\$${_balance.toStringAsFixed(2)}',
+                  amount: '${globals.currentCurrency} ${convertCurrency(_balance).toStringAsFixed(2)}',
                   color: Colors.blue,
                   icon: Icons.account_balance_wallet,
                 ),
@@ -232,7 +258,7 @@ class _HomeScreenState extends State<HomeScreen> {
           style: TextStyle(color: Colors.grey.shade600, fontSize: 12),
         ),
         trailing: Text(
-          '\$${transaction['amount']}',
+          '${globals.currentCurrency} ${convertCurrency((transaction['amount'] as num).toDouble()).toStringAsFixed(2)}',
           style: TextStyle(
             color: isIncome ? Colors.green : Colors.red,
             fontWeight: FontWeight.bold,
@@ -332,7 +358,7 @@ class _HomeScreenState extends State<HomeScreen> {
       child: ListView(
         padding: EdgeInsets.zero,
         children: [
-          const DrawerHeader(
+          DrawerHeader(
             decoration: BoxDecoration(color: Colors.deepPurple),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -340,11 +366,11 @@ class _HomeScreenState extends State<HomeScreen> {
                 Icon(Icons.account_circle, size: 50, color: Colors.white),
                 SizedBox(height: 10),
                 Text(
-                  'User Name',
+                  globals.currentUsername ?? 'Guest',
                   style: TextStyle(color: Colors.white, fontSize: 18),
                 ),
                 Text(
-                  'user@example.com',
+                  userEmail,
                   style: TextStyle(color: Colors.white70, fontSize: 14),
                 ),
               ],

@@ -9,6 +9,7 @@ import 'pages/TransactionHistoryScreen.dart'; // Import the MainNavigationScreen
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   final dbHelper = DatabaseHelper();
+  //await dbHelper.deleteDatabaseFile();
   try {
     await dbHelper.database;
   } catch (e) {

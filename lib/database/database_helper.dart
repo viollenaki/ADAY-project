@@ -8,10 +8,45 @@ class DatabaseHelper {
 
   DatabaseHelper._internal();
 
+  Future<void> deleteDatabaseFile() async {
+    final path = join(await getDatabasesPath(), 'finance.db');
+    await deleteDatabase(path);
+    print('База удалена: $path');
+  }
+
   Future<Database> get database async {
     if (_database != null) return _database!;
     _database = await _initDatabase();
     return _database!;
+  }
+
+  Future<int> insertUser(String name, String email, String password) async {
+    final db = await database;
+    return await db.insert(
+      'user',
+      {
+        'name': name,
+        'email': email,
+        'password': password,
+      },
+      conflictAlgorithm: ConflictAlgorithm.ignore, // не перезаписывать, если имя/email уже есть
+    );
+  }
+
+  Future<String?> getEmailByUsername(String username) async {
+    final db = await database;
+    final result = await db.query(
+      'user',
+      columns: ['email'],
+      where: 'name = ?',
+      whereArgs: [username],
+      limit: 1,
+    );
+
+    if (result.isNotEmpty) {
+      return result.first['email'] as String;
+    }
+    return null;
   }
 
   Future<Database> _initDatabase() async {

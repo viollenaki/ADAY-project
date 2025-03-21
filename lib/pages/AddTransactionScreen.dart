@@ -1,6 +1,8 @@
 // ignore: file_names
 import 'package:flutter/material.dart';
 import 'package:personal_finance/database/database_helper.dart';
+import 'package:personal_finance/pages/LogingRegister.dart' as globals;
+import 'package:personal_finance/pages/HomeScreen.dart' as cur;
 
 class AddTransactionScreen extends StatefulWidget {
   final Map<String, dynamic>? transaction; // Accepts transaction for editing
@@ -59,8 +61,11 @@ class _AddTransactionScreenState extends State<AddTransactionScreen> {
 
   Future<void> _saveTransaction() async {
     if (_formKey.currentState!.validate()) {
+      final enteredAmount = double.parse(_amountController.text);
+      final amountInUSD = enteredAmount / (cur.currency[globals.currentCurrency] ?? 1.0);
+
       final transactionData = {
-        'amount': double.parse(_amountController.text),
+        'amount': amountInUSD,
         'description': _descriptionController.text,
         'type': _type,
         'category': _category,
