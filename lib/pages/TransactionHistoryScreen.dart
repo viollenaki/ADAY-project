@@ -3,7 +3,9 @@ import 'package:personal_finance/database/database_helper.dart';
 import 'AddTransactionScreen.dart';
 
 class TransactionHistoryScreen extends StatefulWidget {
-  const TransactionHistoryScreen({super.key});
+  final bool isEnglish;
+  const TransactionHistoryScreen({super.key, required this.isEnglish});
+  
 
   @override
   _TransactionHistoryScreenState createState() =>
@@ -243,7 +245,10 @@ class _TransactionHistoryScreenState extends State<TransactionHistoryScreen> {
     final result = await Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => AddTransactionScreen(transaction: transaction),
+        builder: (context) => AddTransactionScreen(
+    transaction: transaction,
+    isEnglish: widget.isEnglish, // Передайте значение isEnglish
+  ),
       ),
     );
 

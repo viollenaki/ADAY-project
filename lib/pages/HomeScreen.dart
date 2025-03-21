@@ -3,7 +3,6 @@ import 'package:personal_finance/pages/AddTransactionScreen.dart';
 import 'package:personal_finance/database/database_helper.dart';
 import 'package:personal_finance/widgets/summary_card.dart';
 
-
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
 
@@ -18,6 +17,8 @@ class _HomeScreenState extends State<HomeScreen> {
   double _totalIncome = 0.0;
   double _totalExpenses = 0.0;
   double _balance = 0.0;
+
+  bool _isEnglish = true; // Track the current language
 
   @override
   void initState() {
@@ -66,7 +67,7 @@ class _HomeScreenState extends State<HomeScreen> {
       final db = await dbHelper.database;
       return await db.query('transactions', orderBy: 'date DESC');
     } catch (e) {
-      print("Error fetching transactions: $e");
+      print(_isEnglish ? "Error fetching transactions: $e" : "Ошибка при получении транзакций: $e");
       return [];
     }
   }
@@ -76,19 +77,21 @@ class _HomeScreenState extends State<HomeScreen> {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: const Text('Logout'),
-          content: const Text('Are you sure you want to logout?'),
+          title: Text(_isEnglish ? 'Logout' : 'Выйти'),
+          content: Text(_isEnglish
+              ? 'Are you sure you want to logout?'
+              : 'Вы уверены, что хотите выйти?'),
           actions: [
             TextButton(
               onPressed: () => Navigator.pop(context), // Close dialog
-              child: const Text('Cancel'),
+              child: Text(_isEnglish ? 'Cancel' : 'Отмена'),
             ),
             TextButton(
               onPressed: () {
                 Navigator.pushReplacementNamed(
                     context, '/'); // Navigate to login screen
               },
-              child: const Text('Logout'),
+              child: Text(_isEnglish ? 'Logout' : 'Выйти'),
             ),
           ],
         );
@@ -96,12 +99,21 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
+  void _toggleLanguage() {
+    setState(() {
+      _isEnglish = !_isEnglish;
+    });
+
+    // Update app-wide localization logic here
+    print(_isEnglish ? "Switched to English" : "Switched to Russian");
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text(
-          'Personal Finance',
+        title: Text(_isEnglish ?
+          'Personal Finance' : 'Личные финансы',
           style: TextStyle(
             color: Colors.white,
             fontSize: 22,
@@ -129,21 +141,21 @@ class _HomeScreenState extends State<HomeScreen> {
             child: Column(
               children: [
                 SummaryCard(
-                  title: 'Income',
+                  title: _isEnglish ? 'Income' : 'Доход',
                   amount: '\$${_totalIncome.toStringAsFixed(2)}',
                   color: Colors.green,
-                  icon: Icons.arrow_downward,
-                ),
-                const SizedBox(height: 12),
-                SummaryCard(
-                  title: 'Expenses',
-                  amount: '\$${_totalExpenses.toStringAsFixed(2)}',
-                  color: Colors.red,
                   icon: Icons.arrow_upward,
                 ),
                 const SizedBox(height: 12),
                 SummaryCard(
-                  title: 'Balance',
+                  title: _isEnglish ? 'Expenses' : 'Расходы',
+                  amount: '\$${_totalExpenses.toStringAsFixed(2)}',
+                  color: Colors.red,
+                  icon: Icons.arrow_downward,
+                ),
+                const SizedBox(height: 12),
+                SummaryCard(
+                  title: _isEnglish ? 'Balance' : 'Баланс',
                   amount: '\$${_balance.toStringAsFixed(2)}',
                   color: Colors.blue,
                   icon: Icons.account_balance_wallet,
@@ -166,9 +178,9 @@ class _HomeScreenState extends State<HomeScreen> {
                   if (snapshot.connectionState == ConnectionState.waiting) {
                     return const Center(child: CircularProgressIndicator());
                   } else if (snapshot.hasError) {
-                    return Center(child: Text('Error: ${snapshot.error}'));
+                    return Center(child: Text(_isEnglish ?'Error: ${snapshot.error}' : 'Ошибка: ${snapshot.error}'));
                   } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
-                    return const Center(child: Text('No transactions yet.'));
+                    return Center(child: Text(_isEnglish ? 'No transactions yet.' : 'Пока нет транзакций.'));
                   }
 
                   final transactions = snapshot.data!;
@@ -191,7 +203,7 @@ class _HomeScreenState extends State<HomeScreen> {
         onPressed: () async {
           final result = await Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) => AddTransactionScreen()),
+            MaterialPageRoute(builder: (context) => AddTransactionScreen(isEnglish: _isEnglish)),
           );
 
           if (result == true) {
@@ -251,15 +263,15 @@ class _HomeScreenState extends State<HomeScreen> {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: const Text("Transaction Actions"),
-          content: const Text("What would you like to do?"),
+          title: Text(_isEnglish ? "Transaction Actions" : "Действия"),
+          content: Text(_isEnglish ? "What would you like to do?" : "Что вы хотите сделать?"),
           actions: [
             TextButton(
               onPressed: () {
                 Navigator.pop(context);
                 _editTransaction(transaction); // Edit Transaction
               },
-              child: const Text("Edit"),
+              child: Text(_isEnglish ? "Edit" : "Изменить"),
             ),
             TextButton(
               onPressed: () async {
@@ -267,7 +279,8 @@ class _HomeScreenState extends State<HomeScreen> {
                 await _deleteTransaction(
                     transaction['id']); // Delete Transaction
               },
-              child: const Text("Delete", style: TextStyle(color: Colors.red)),
+              child: Text(_isEnglish ? "Delete" : "Удалить",
+                  style: TextStyle(color: Colors.red)),
             ),
           ],
         );
@@ -280,7 +293,8 @@ class _HomeScreenState extends State<HomeScreen> {
     final result = await Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => AddTransactionScreen(transaction: transaction),
+        builder: (context) => AddTransactionScreen(transaction: transaction,
+        isEnglish: _isEnglish,),
       ),
     );
 
@@ -296,17 +310,21 @@ class _HomeScreenState extends State<HomeScreen> {
     bool confirmDelete = await showDialog(
       context: context,
       builder: (context) => AlertDialog(
-        title: const Text("Delete Transaction"),
-        content:
-            const Text("Are you sure you want to delete this transaction?"),
+        title: Text(_isEnglish ? "Delete Transaction" : "Удалить транзакцию"),
+        content: Text(_isEnglish
+            ? "Are you sure you want to delete this transaction?"
+            : "Вы уверены, что хотите удалить эту транзакцию?"),
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(context, false),
-            child: const Text("Cancel"),
+            child: Text(_isEnglish ? "Cancel" : "Отмена"),
           ),
           TextButton(
             onPressed: () => Navigator.pop(context, true),
-            child: const Text("Delete", style: TextStyle(color: Colors.red)),
+            child: Text(
+              _isEnglish ? "Delete" : "Удалить",
+              style: const TextStyle(color: Colors.red),
+            ),
           ),
         ],
       ),
@@ -321,7 +339,7 @@ class _HomeScreenState extends State<HomeScreen> {
           _loadData(); // Refresh transactions and summary data
         });
       } catch (e) {
-        print("Error deleting transaction: $e");
+        print(_isEnglish ? "Error deleting transaction: $e" : "Ошибка при удалении транзакции: $e");
       }
     }
   }
@@ -352,21 +370,26 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
           ListTile(
             leading: const Icon(Icons.account_box),
-            title: const Text('Account'),
+            title: Text(_isEnglish ? 'Account' : 'Аккаунт'),
             onTap: () {
               Navigator.pop(context);
             },
           ),
           ListTile(
             leading: const Icon(Icons.category),
-            title: const Text('category'),
+            title: Text(_isEnglish ? 'Category' : 'Категория'),
             onTap: () {
               // Navigate to settings (implement later)
             },
           ),
           ListTile(
+            leading: const Icon(Icons.language),
+            title: Text(_isEnglish ? 'Change Language' : 'Сменить язык'),
+            onTap: _toggleLanguage,
+          ),
+          ListTile(
             leading: const Icon(Icons.logout),
-            title: const Text('Logout'),
+            title: Text(_isEnglish ? 'Logout' : 'Выйти'),
             onTap: _showLogoutDialog,
           ),
         ],
@@ -374,4 +397,3 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 }
-

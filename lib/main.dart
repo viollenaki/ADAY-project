@@ -46,10 +46,11 @@ class _MainNavigationScreenState extends State<MainNavigationScreen> {
 
   final List<Widget> _screens = [
     const HomeScreen(key: ValueKey('HomeScreen')),
-    const TransactionHistoryScreen(key: ValueKey('TransactionHistoryScreen')),
+    TransactionHistoryScreen(key: ValueKey('TransactionHistoryScreen'), isEnglish: ,),
     const ReportsScreen(key: ValueKey('ReportsScreen')),
     const SettingsScreen(key: ValueKey('SettingsScreen')),
   ];
+
 
   void _onItemTapped(int index) {
     setState(() {

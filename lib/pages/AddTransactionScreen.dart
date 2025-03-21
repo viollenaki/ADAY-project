@@ -1,15 +1,15 @@
 // ignore: file_names
 import 'package:flutter/material.dart';
 import 'package:personal_finance/database/database_helper.dart';
+import 'package:personal_finance/pages/HomeScreen.dart' as language;
 
 class AddTransactionScreen extends StatefulWidget {
-  final Map<String, dynamic>? transaction; // Accepts transaction for editing
+  final Map<String, dynamic>? transaction;
+  final bool isEnglish;
 
-  // ignore: use_super_parameters
-  const AddTransactionScreen({Key? key, this.transaction}) : super(key: key);
+  const AddTransactionScreen({Key? key, this.transaction, required this.isEnglish}) : super(key: key);
 
   @override
-  // ignore: library_private_types_in_public_api
   _AddTransactionScreenState createState() => _AddTransactionScreenState();
 }
 
@@ -19,18 +19,17 @@ class _AddTransactionScreenState extends State<AddTransactionScreen> {
 
   late TextEditingController _amountController;
   late TextEditingController _descriptionController;
-  String _type = 'expense'; // Default to expense
+  String _type = 'expense';
   String _category = 'Other';
   DateTime _selectedDate = DateTime.now();
 
   // Predefined categories
-  final List<String> _categories = [
-    'Food',
-    'Transport',
-    'Shopping',
-    'Bills',
-    'Other',
-  ];
+  List<String> get _categories {
+    return widget.isEnglish
+        ? ['Food', 'Transport', 'Shopping', 'Bills', 'Other']
+        : ['Еда', 'Транспорт', 'Покупки', 'Счета', 'Другое'];
+  }
+
 
   @override
   void initState() {
@@ -106,7 +105,8 @@ class _AddTransactionScreenState extends State<AddTransactionScreen> {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          widget.transaction == null ? "Add Transaction" : "Edit Transaction",
+          widget.transaction == null ? widget.isEnglish ? "Add Transaction" : "Добавить транзакцию"
+            : widget.isEnglish ? "Edit Transaction" : "Редактировать транзакцию",
           style: TextStyle(
             color: Colors.white,
             fontSize: 22,
@@ -134,7 +134,7 @@ class _AddTransactionScreenState extends State<AddTransactionScreen> {
               TextFormField(
                 controller: _amountController,
                 decoration: InputDecoration(
-                  labelText: "Amount",
+                  labelText: widget.isEnglish ? "Amount" : "Сумма",
                   prefixIcon:
                       Icon(Icons.attach_money, color: Colors.blueAccent),
                   border: OutlineInputBorder(
@@ -144,11 +144,11 @@ class _AddTransactionScreenState extends State<AddTransactionScreen> {
                 keyboardType: TextInputType.number,
                 validator: (value) {
                   if (value == null || value.isEmpty) {
-                    return "Enter an amount";
+                    return widget.isEnglish ? "Enter an amount" : "Введите сумму";
                   }
                   final amount = double.tryParse(value);
                   if (amount == null || amount <= 0) {
-                    return "Enter a valid amount";
+                    return widget.isEnglish ? "Enter a valid amount" :  "Введите действительную сумму";
                   }
                   return null;
                 },
@@ -166,7 +166,7 @@ class _AddTransactionScreenState extends State<AddTransactionScreen> {
                   ),
                 ),
                 validator: (value) => value == null || value.isEmpty
-                    ? "Enter a description"
+                    ? widget.isEnglish ? "Enter a description" : "Введите описание" 
                     : null,
               ),
               const SizedBox(height: 20),
@@ -243,8 +243,9 @@ class _AddTransactionScreenState extends State<AddTransactionScreen> {
                 ),
                 child: Text(
                   widget.transaction == null
-                      ? "Add Transaction"
-                      : "Update Transaction",
+                      ? widget.isEnglish ? "Add Transaction" : "Добавить транзакцию"
+                      : widget.isEnglish ? "Update Transaction"
+                      : "Обновить транзакцию",
                   style: TextStyle(fontSize: 18, color: Colors.white),
                 ),
               ),
