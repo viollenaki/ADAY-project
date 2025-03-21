@@ -132,14 +132,14 @@ class _HomeScreenState extends State<HomeScreen> {
                   title: 'Income',
                   amount: '\$${_totalIncome.toStringAsFixed(2)}',
                   color: Colors.green,
-                  icon: Icons.arrow_upward,
+                  icon: Icons.arrow_downward,
                 ),
                 const SizedBox(height: 12),
                 SummaryCard(
                   title: 'Expenses',
                   amount: '\$${_totalExpenses.toStringAsFixed(2)}',
                   color: Colors.red,
-                  icon: Icons.arrow_downward,
+                  icon: Icons.arrow_upward,
                 ),
                 const SizedBox(height: 12),
                 SummaryCard(
