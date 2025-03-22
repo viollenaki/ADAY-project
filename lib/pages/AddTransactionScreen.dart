@@ -1,6 +1,7 @@
 // ignore: file_names
 import 'package:flutter/material.dart';
 import 'package:personal_finance/database/database_helper.dart';
+import 'package:personal_finance/database/globals.dart' as globals;
 
 class AddTransactionScreen extends StatefulWidget {
   final Map<String, dynamic>? transaction; // Accepts transaction for editing
@@ -24,13 +25,8 @@ class _AddTransactionScreenState extends State<AddTransactionScreen> {
   DateTime _selectedDate = DateTime.now();
 
   // Predefined categories
-  final List<String> _categories = [
-    'Food',
-    'Transport',
-    'Shopping',
-    'Bills',
-    'Other',
-  ];
+  //final List<String> _categories = ['Food', 'Transport', 'Shopping', 'Bills', 'Other',];
+  List<String> _categories = [];
 
   @override
   void initState() {
@@ -48,6 +44,7 @@ class _AddTransactionScreenState extends State<AddTransactionScreen> {
       _category = widget.transaction!['category'];
       _selectedDate = DateTime.parse(widget.transaction!['date']);
     }
+    _loadCategories();
   }
 
   @override
@@ -59,8 +56,11 @@ class _AddTransactionScreenState extends State<AddTransactionScreen> {
 
   Future<void> _saveTransaction() async {
     if (_formKey.currentState!.validate()) {
+      final enteredAmount = double.parse(_amountController.text);
+      final amountInUSD = enteredAmount / (globals.currency[globals.currentCurrency] ?? 1.0);
+
       final transactionData = {
-        'amount': double.parse(_amountController.text),
+        'amount': amountInUSD,
         'description': _descriptionController.text,
         'type': _type,
         'category': _category,
@@ -86,6 +86,26 @@ class _AddTransactionScreenState extends State<AddTransactionScreen> {
       Navigator.pop(context, true); // Return success
     }
   }
+  Future<void> _loadCategories() async {
+    final categories = await _dbHelper.getCategoriesByType(_type);
+    categories.remove("Other");
+    categories.add("Other");
+    setState(() {
+      _categories = categories;
+      if (!_categories.contains(_category)) {
+        _category = _categories.isNotEmpty ? _categories.first : 'Other';
+      }
+    });
+  }
+  // Future<void> _loadCategories() async {
+  //   final categories = await _dbHelper.getCategoriesByType(_type);
+  //   setState(() {
+  //     _categories = categories;
+  //     if (!_categories.contains(_category)) {
+  //       _category = _categories.isNotEmpty ? _categories.first : 'Other';
+  //     }
+  //   });
+  // }
 
   Future<void> _selectDate(BuildContext context) async {
     final DateTime? picked = await showDatePicker(
@@ -188,7 +208,7 @@ class _AddTransactionScreenState extends State<AddTransactionScreen> {
                     child: Text(type.capitalize()),
                   );
                 }).toList(),
-                onChanged: (value) => setState(() => _type = value!),
+                onChanged: (value) {setState(() {_type = value!;_loadCategories();});},
               ),
               const SizedBox(height: 20),
 

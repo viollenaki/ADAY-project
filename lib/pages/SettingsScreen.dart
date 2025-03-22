@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:personal_finance/database/globals.dart' as globals;
 
 class SettingsScreen extends StatefulWidget {
   const SettingsScreen({super.key});
@@ -9,7 +10,7 @@ class SettingsScreen extends StatefulWidget {
 
 class _SettingsScreenState extends State<SettingsScreen> {
   bool _isDarkMode = false;
-  String _selectedCurrency = 'USD';
+  String _selectedCurrency = globals.currentCurrency;
   bool _isFingerprintEnabled = false;
 
   void _toggleTheme() {
@@ -21,6 +22,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
   void _selectCurrency(String? value) {
     setState(() {
       _selectedCurrency = value!;
+      globals.currentCurrency = value.substring(0, 3);
     });
   }
 
@@ -96,6 +98,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   DropdownMenuItem(value: 'EUR', child: Text('EUR - Euro')),
                   DropdownMenuItem(
                       value: 'INR', child: Text('INR - Indian Rupee')),
+                  DropdownMenuItem(value: 'KGS', child: Text('KGS - Kyrgyzstan')),
                 ],
               ),
             ),

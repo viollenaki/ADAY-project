@@ -2,7 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:personal_finance/pages/AddTransactionScreen.dart';
 import 'package:personal_finance/database/database_helper.dart';
 import 'package:personal_finance/widgets/summary_card.dart';
-
+import 'package:personal_finance/pages/Category.dart';
+import 'package:personal_finance/database/globals.dart' as globals;
+import 'package:http/http.dart' as http;
+import 'package:xml/xml.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -18,18 +21,93 @@ class _HomeScreenState extends State<HomeScreen> {
   double _totalIncome = 0.0;
   double _totalExpenses = 0.0;
   double _balance = 0.0;
+  String userEmail = 'user@example.com';
 
   @override
   void initState() {
     super.initState();
     dbHelper = DatabaseHelper();
     _loadData();
+    _getEmailOnce();
+    _fetchCurrencyRates();
   }
 
   // Load transactions and summary data
   void _loadData() {
     _transactionsFuture = _fetchTransactions();
     _fetchSummaryData();
+  }
+
+  double convertCurrency(double amount) {
+    return amount * (globals.currency[globals.currentCurrency] ?? 1.0);
+  }
+
+  Future<Map<String, double>> getCurrencyRelativeToUSD() async {
+    final url = Uri.parse('https://www.cbr.ru/scripts/XML_daily.asp');
+    final response = await http.get(url);
+
+    if (response.statusCode != 200) {
+      throw Exception('Ошибка при получении данных от ЦБ РФ');
+    }
+
+    final document = XmlDocument.parse(response.body);
+    final valutes = document.findAllElements('Valute');
+
+    double? usdToRub; // сколько рублей за 1 USD
+    final Map<String, double> ratesInRub = {};
+
+    for (final valute in valutes) {
+      final charCode = valute.getElement('CharCode')?.text;
+      final nominal = int.parse(valute.getElement('Nominal')?.text ?? '1');
+      final valueStr = valute.getElement('Value')?.text.replaceAll(',', '.');
+      final value = double.parse(valueStr ?? '0');
+
+      final ratePerUnit = value / nominal;
+
+      if (charCode == 'USD') {
+        usdToRub = ratePerUnit;
+      } else {
+        ratesInRub[charCode!] = ratePerUnit;
+      }
+    }
+
+    if (usdToRub == null) {
+      throw Exception('Курс USD не найден');
+    }
+
+    // Преобразуем в: "сколько валюты за 1 доллар"
+    final Map<String, double> currency = {'USD': 1.0};
+
+    for (final entry in ratesInRub.entries) {
+      final code = entry.key;
+      final rubPerUnit = entry.value;
+      final valuePerUSD = usdToRub / rubPerUnit;
+      currency[code] = valuePerUSD;
+    }
+
+    return currency;
+  }
+
+  void _getEmailOnce() async {
+    if (globals.currentUsername != null) {
+      final email = await dbHelper.getEmailByUsername(globals.currentUsername!);
+      if (email != null) {
+        setState(() {
+          userEmail = email;
+        });
+      }
+    }
+  }
+  void _fetchCurrencyRates() async {
+    try {
+      final currencyRates = await getCurrencyRelativeToUSD();
+      setState(() {
+        globals.currency = currencyRates; // сохраняем в глобальную переменную
+        print(globals.currency);
+      });
+    } catch (e) {
+      print('Ошибка при получении курса валют: $e');
+    }
   }
 
   // Fetch summary data (income, expenses, balance)
@@ -68,6 +146,38 @@ class _HomeScreenState extends State<HomeScreen> {
     } catch (e) {
       print("Error fetching transactions: $e");
       return [];
+    }
+  }
+
+  Future<void> _deleteAllTransactions() async {
+    bool confirmDelete = await showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: const Text("Delete All Transactions"),
+        content: const Text("Are you sure you want to delete all transactions?"),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(context, false),
+            child: const Text("Cancel"),
+          ),
+          TextButton(
+            onPressed: () => Navigator.pop(context, true),
+            child: const Text("Delete", style: TextStyle(color: Colors.red)),
+          ),
+        ],
+      ),
+    );
+
+    if (confirmDelete) {
+      try {
+        final db = await dbHelper.database;
+        await db.delete('transactions');
+        setState(() {
+          _loadData(); // Обновим список
+        });
+      } catch (e) {
+        print("Error deleting all transactions: $e");
+      }
     }
   }
 
@@ -130,21 +240,21 @@ class _HomeScreenState extends State<HomeScreen> {
               children: [
                 SummaryCard(
                   title: 'Income',
-                  amount: '\$${_totalIncome.toStringAsFixed(2)}',
+                  amount: '${globals.currentCurrency} ${convertCurrency(_totalIncome).toStringAsFixed(2)}',
                   color: Colors.green,
-                  icon: Icons.arrow_downward,
-                ),
-                const SizedBox(height: 12),
-                SummaryCard(
-                  title: 'Expenses',
-                  amount: '\$${_totalExpenses.toStringAsFixed(2)}',
-                  color: Colors.red,
                   icon: Icons.arrow_upward,
                 ),
                 const SizedBox(height: 12),
                 SummaryCard(
+                  title: 'Expenses',
+                  amount: '${globals.currentCurrency} ${convertCurrency(_totalExpenses).toStringAsFixed(2)}',
+                  color: Colors.red,
+                  icon: Icons.arrow_downward,
+                ),
+                const SizedBox(height: 12),
+                SummaryCard(
                   title: 'Balance',
-                  amount: '\$${_balance.toStringAsFixed(2)}',
+                  amount: '${globals.currentCurrency} ${convertCurrency(_balance).toStringAsFixed(2)}',
                   color: Colors.blue,
                   icon: Icons.account_balance_wallet,
                 ),
@@ -232,7 +342,7 @@ class _HomeScreenState extends State<HomeScreen> {
           style: TextStyle(color: Colors.grey.shade600, fontSize: 12),
         ),
         trailing: Text(
-          '\$${transaction['amount']}',
+          '${globals.currentCurrency} ${convertCurrency((transaction['amount'] as num).toDouble()).toStringAsFixed(2)}',
           style: TextStyle(
             color: isIncome ? Colors.green : Colors.red,
             fontWeight: FontWeight.bold,
@@ -332,7 +442,7 @@ class _HomeScreenState extends State<HomeScreen> {
       child: ListView(
         padding: EdgeInsets.zero,
         children: [
-          const DrawerHeader(
+          DrawerHeader(
             decoration: BoxDecoration(color: Colors.deepPurple),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -340,11 +450,11 @@ class _HomeScreenState extends State<HomeScreen> {
                 Icon(Icons.account_circle, size: 50, color: Colors.white),
                 SizedBox(height: 10),
                 Text(
-                  'User Name',
+                  globals.currentUsername ?? 'Guest',
                   style: TextStyle(color: Colors.white, fontSize: 18),
                 ),
                 Text(
-                  'user@example.com',
+                  userEmail,
                   style: TextStyle(color: Colors.white70, fontSize: 14),
                 ),
               ],
@@ -359,9 +469,12 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
           ListTile(
             leading: const Icon(Icons.category),
-            title: const Text('category'),
+            title: const Text('Сategory'),
             onTap: () {
-              // Navigate to settings (implement later)
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => const CategoryScreen()),
+              );
             },
           ),
           ListTile(
@@ -369,9 +482,13 @@ class _HomeScreenState extends State<HomeScreen> {
             title: const Text('Logout'),
             onTap: _showLogoutDialog,
           ),
+          ListTile(
+            leading: const Icon(Icons.delete_forever),
+            title: const Text('Delete All'),
+            onTap: _deleteAllTransactions,
+          ),
         ],
       ),
     );
   }
 }
-

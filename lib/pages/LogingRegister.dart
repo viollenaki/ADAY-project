@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:personal_finance/database/database_helper.dart';
+import 'package:personal_finance/database/globals.dart';
 import '../main.dart';
 
 class Loginregister extends StatefulWidget {
@@ -138,6 +140,7 @@ class _LoginregisterState extends State<Loginregister> {
                             onPressed: () {
                               if (_formKey.currentState!.validate()) {
                                 if (_isLogin) {
+                                  currentUsername = _usernameController.text;
                                   // Navigate to home page (Login action)
                                   Navigator.of(context).pushReplacement(
                                     MaterialPageRoute(
@@ -146,7 +149,25 @@ class _LoginregisterState extends State<Loginregister> {
                                     ),
                                   );
                                 } else {
-                                  // Handle registration (not implemented yet)
+                                  final dbHelper = DatabaseHelper();
+                                  final name = _usernameController.text;
+                                  final email = _emailController.text;
+                                  final password = _passwordController.text;
+
+                                  dbHelper.insertUser(name, email, password).then((id) {
+                                    if (id > 0) {
+                                      currentUsername = name;
+                                      Navigator.of(context).pushReplacement(
+                                        MaterialPageRoute(
+                                          builder: (context) => const MainNavigationScreen(),
+                                        ),
+                                      );
+                                    } else {
+                                      ScaffoldMessenger.of(context).showSnackBar(
+                                        const SnackBar(content: Text("User already exists or registration failed.")),
+                                      );
+                                    }
+                                  });
                                   print("Registering user...");
                                 }
                               }

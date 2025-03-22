@@ -35,7 +35,7 @@ class _ReportsScreenState extends State<ReportsScreen> {
 
       if (selectedCategories.isNotEmpty) {
         whereClause +=
-            " AND category IN (${List.filled(selectedCategories.length, '?').join(',')})";
+        " AND category IN (${List.filled(selectedCategories.length, '?').join(',')})";
         whereArgs.addAll(selectedCategories);
       }
 
@@ -133,9 +133,9 @@ class _ReportsScreenState extends State<ReportsScreen> {
           }
 
           final categorySpending =
-              snapshot.data!["categorySpending"] as Map<String, double>;
+          snapshot.data!["categorySpending"] as Map<String, double>;
           final monthlySpending =
-              snapshot.data!["monthlySpending"] as Map<String, double>;
+          snapshot.data!["monthlySpending"] as Map<String, double>;
 
           // Calculate total amount for percentages
           double totalAmount = 0;
@@ -157,72 +157,72 @@ class _ReportsScreenState extends State<ReportsScreen> {
                   child: categorySpending.isEmpty
                       ? _buildNoDataWidget()
                       : Column(
-                          children: [
-                            SizedBox(
-                              height: 250,
-                              child: PieChart(
-                                PieChartData(
-                                  sections: _getOrderedPieChartSections(
-                                      categorySpending, totalAmount),
-                                  sectionsSpace: 2,
-                                  centerSpaceRadius: 40,
-                                  pieTouchData: PieTouchData(
-                                    enabled: true,
-                                    touchCallback:
-                                        (FlTouchEvent event, pieTouchResponse) {
-                                      // Проверяем, было ли нажатие завершено
-                                      if (event is FlTapUpEvent ||
-                                          event is FlPanEndEvent ||
-                                          event is FlLongPressEnd) {
-                                        if (pieTouchResponse == null ||
-                                            pieTouchResponse.touchedSection ==
-                                                null) {
-                                          setState(() {
-                                            selectedCategory = null;
-                                          });
-                                          return;
-                                        }
+                    children: [
+                      SizedBox(
+                        height: 250,
+                        child: PieChart(
+                          PieChartData(
+                            sections: _getOrderedPieChartSections(
+                                categorySpending, totalAmount),
+                            sectionsSpace: 2,
+                            centerSpaceRadius: 40,
+                            pieTouchData: PieTouchData(
+                              enabled: true,
+                              touchCallback:
+                                  (FlTouchEvent event, pieTouchResponse) {
+                                // Проверяем, было ли нажатие завершено
+                                if (event is FlTapUpEvent ||
+                                    event is FlPanEndEvent ||
+                                    event is FlLongPressEnd) {
+                                  if (pieTouchResponse == null ||
+                                      pieTouchResponse.touchedSection ==
+                                          null) {
+                                    setState(() {
+                                      selectedCategory = null;
+                                    });
+                                    return;
+                                  }
 
-                                        final touchedIndex = pieTouchResponse
-                                            .touchedSection!
-                                            .touchedSectionIndex;
+                                  final touchedIndex = pieTouchResponse
+                                      .touchedSection!
+                                      .touchedSectionIndex;
 
-                                        if (touchedIndex >= 0 &&
-                                            touchedIndex <
-                                                _getOrderedCategories(
-                                                        categorySpending)
-                                                    .length) {
-                                          final category =
-                                              _getOrderedCategories(
-                                                      categorySpending)[
-                                                  touchedIndex];
+                                  if (touchedIndex >= 0 &&
+                                      touchedIndex <
+                                          _getOrderedCategories(
+                                              categorySpending)
+                                              .length) {
+                                    final category =
+                                    _getOrderedCategories(
+                                        categorySpending)[
+                                    touchedIndex];
 
-                                          setState(() {
-                                            // Toggle selection
-                                            if (selectedCategory == category) {
-                                              selectedCategory = null;
-                                            } else {
-                                              selectedCategory = category;
-                                            }
-                                          });
-                                        }
+                                    setState(() {
+                                      // Toggle selection
+                                      if (selectedCategory == category) {
+                                        selectedCategory = null;
+                                      } else {
+                                        selectedCategory = category;
                                       }
-                                    },
-                                  ),
-                                ),
-                              ),
+                                    });
+                                  }
+                                }
+                              },
                             ),
-                            const SizedBox(height: 10),
-                            _buildLegend(categorySpending),
-                            // Show detailed category view if category is selected
-                            if (selectedCategory != null &&
-                                categorySpending.containsKey(selectedCategory!))
-                              _buildCategoryDetailCard(
-                                  selectedCategory!,
-                                  categorySpending[selectedCategory!]!,
-                                  totalAmount),
-                          ],
+                          ),
                         ),
+                      ),
+                      const SizedBox(height: 10),
+                      _buildLegend(categorySpending),
+                      // Show detailed category view if category is selected
+                      if (selectedCategory != null &&
+                          categorySpending.containsKey(selectedCategory!))
+                        _buildCategoryDetailCard(
+                            selectedCategory!,
+                            categorySpending[selectedCategory!]!,
+                            totalAmount),
+                    ],
+                  ),
                 ),
                 const SizedBox(height: 20),
                 _buildChartCard(
@@ -230,79 +230,79 @@ class _ReportsScreenState extends State<ReportsScreen> {
                   child: monthlySpending.isEmpty
                       ? _buildNoDataWidget()
                       : SizedBox(
-                          height: 250,
-                          child: BarChart(
-                            BarChartData(
-                              barGroups: monthlySpending.entries.map((entry) {
-                                return BarChartGroupData(
-                                  x: int.parse(entry.key.split('-')[1]),
-                                  barRods: [
-                                    BarChartRodData(
-                                      toY: entry.value,
-                                      gradient: LinearGradient(
-                                        colors: [
-                                          Colors.blueAccent,
-                                          Colors.purpleAccent,
-                                        ],
-                                        begin: Alignment.bottomCenter,
-                                        end: Alignment.topCenter,
-                                      ),
-                                      width: 16,
-                                      borderRadius: BorderRadius.circular(4),
-                                    ),
+                    height: 250,
+                    child: BarChart(
+                      BarChartData(
+                        barGroups: monthlySpending.entries.map((entry) {
+                          return BarChartGroupData(
+                            x: int.parse(entry.key.split('-')[1]),
+                            barRods: [
+                              BarChartRodData(
+                                toY: entry.value,
+                                gradient: LinearGradient(
+                                  colors: [
+                                    Colors.blueAccent,
+                                    Colors.purpleAccent,
                                   ],
+                                  begin: Alignment.bottomCenter,
+                                  end: Alignment.topCenter,
+                                ),
+                                width: 16,
+                                borderRadius: BorderRadius.circular(4),
+                              ),
+                            ],
+                          );
+                        }).toList(),
+                        titlesData: FlTitlesData(
+                          bottomTitles: AxisTitles(
+                            sideTitles: SideTitles(
+                              showTitles: true,
+                              getTitlesWidget: (value, meta) {
+                                return Text(
+                                  _getMonthLabel(value.toInt()),
+                                  style: const TextStyle(
+                                    fontSize: 12,
+                                    color: Colors.black87,
+                                  ),
                                 );
-                              }).toList(),
-                              titlesData: FlTitlesData(
-                                bottomTitles: AxisTitles(
-                                  sideTitles: SideTitles(
-                                    showTitles: true,
-                                    getTitlesWidget: (value, meta) {
-                                      return Text(
-                                        _getMonthLabel(value.toInt()),
-                                        style: const TextStyle(
-                                          fontSize: 12,
-                                          color: Colors.black87,
-                                        ),
-                                      );
-                                    },
-                                  ),
-                                ),
-                                leftTitles: AxisTitles(
-                                  sideTitles: SideTitles(
-                                    showTitles: true,
-                                    reservedSize: 30,
-                                    interval: 50,
-                                    getTitlesWidget: (value, meta) {
-                                      return Text(
-                                        "\$${value.toInt()}",
-                                        style: const TextStyle(
-                                          fontSize: 12,
-                                          color: Colors.black87,
-                                        ),
-                                      );
-                                    },
-                                  ),
-                                ),
-                                topTitles: AxisTitles(
-                                    sideTitles: SideTitles(showTitles: false)),
-                                rightTitles: AxisTitles(
-                                    sideTitles: SideTitles(showTitles: false)),
-                              ),
-                              borderData: FlBorderData(show: false),
-                              gridData: FlGridData(
-                                show: true,
-                                drawVerticalLine: false,
-                                getDrawingHorizontalLine: (value) {
-                                  return FlLine(
-                                    color: Colors.grey[300]!,
-                                    strokeWidth: 1,
-                                  );
-                                },
-                              ),
+                              },
                             ),
                           ),
+                          leftTitles: AxisTitles(
+                            sideTitles: SideTitles(
+                              showTitles: true,
+                              reservedSize: 30,
+                              interval: 50,
+                              getTitlesWidget: (value, meta) {
+                                return Text(
+                                  "\$${value.toInt()}",
+                                  style: const TextStyle(
+                                    fontSize: 12,
+                                    color: Colors.black87,
+                                  ),
+                                );
+                              },
+                            ),
+                          ),
+                          topTitles: AxisTitles(
+                              sideTitles: SideTitles(showTitles: false)),
+                          rightTitles: AxisTitles(
+                              sideTitles: SideTitles(showTitles: false)),
                         ),
+                        borderData: FlBorderData(show: false),
+                        gridData: FlGridData(
+                          show: true,
+                          drawVerticalLine: false,
+                          getDrawingHorizontalLine: (value) {
+                            return FlLine(
+                              color: Colors.grey[300]!,
+                              strokeWidth: 1,
+                            );
+                          },
+                        ),
+                      ),
+                    ),
+                  ),
                 ),
               ],
             ),
@@ -379,7 +379,7 @@ class _ReportsScreenState extends State<ReportsScreen> {
               value: amount / total,
               backgroundColor: Colors.grey[200],
               valueColor:
-                  AlwaysStoppedAnimation<Color>(_getChartColor(category)),
+              AlwaysStoppedAnimation<Color>(_getChartColor(category)),
             ),
           ],
         ),
@@ -636,7 +636,7 @@ class _ReportsScreenState extends State<ReportsScreen> {
               borderRadius: BorderRadius.circular(4),
               border: Border.all(
                 color:
-                    isSelected ? _getChartColor(category) : Colors.transparent,
+                isSelected ? _getChartColor(category) : Colors.transparent,
                 width: 1,
               ),
             ),
@@ -657,7 +657,7 @@ class _ReportsScreenState extends State<ReportsScreen> {
                   style: TextStyle(
                     fontSize: isSelected ? 14 : 12,
                     fontWeight:
-                        isSelected ? FontWeight.bold : FontWeight.normal,
+                    isSelected ? FontWeight.bold : FontWeight.normal,
                   ),
                 ),
               ],
