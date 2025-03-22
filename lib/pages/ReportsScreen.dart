@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:personal_finance/database/database_helper.dart';
-import 'package:personal_finance/pages/LogingRegister.dart' as globals;
-import 'package:personal_finance/pages/HomeScreen.dart' as cur;
+import 'package:personal_finance/database/globals.dart' as globals;
 
 class ReportsScreen extends StatefulWidget {
   const ReportsScreen({super.key});
@@ -27,7 +26,7 @@ class _ReportsScreenState extends State<ReportsScreen> {
   }
 
   double convertCurrency(double amount) {
-    return amount * (cur.currency[globals.currentCurrency] ?? 1.0);
+    return amount * (globals.currency[globals.currentCurrency] ?? 1.0);
   }
 
   Future<Map<String, dynamic>> _loadData() async {

@@ -1,11 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:personal_finance/database/database_helper.dart';
+import 'package:personal_finance/database/globals.dart';
 import '../main.dart';
-
-//global
-String? currentUsername;
-String currentCurrency='KGS';
-//________________________
 
 class Loginregister extends StatefulWidget {
   const Loginregister({super.key});
@@ -172,7 +168,6 @@ class _LoginregisterState extends State<Loginregister> {
                                       );
                                     }
                                   });
-                                  // Handle registration (not implemented yet)
                                   print("Registering user...");
                                 }
                               }

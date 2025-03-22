@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:personal_finance/database/database_helper.dart';
-import 'package:personal_finance/pages/LogingRegister.dart' as globals;
-import 'package:personal_finance/pages/HomeScreen.dart' as cur;
+import 'package:personal_finance/database/globals.dart' as globals;
 import 'AddTransactionScreen.dart';
 
 class TransactionHistoryScreen extends StatefulWidget {
@@ -65,7 +64,7 @@ class _TransactionHistoryScreenState extends State<TransactionHistoryScreen> {
   }
 
   double convertCurrency(double amount) {
-    return amount * (cur.currency[globals.currentCurrency] ?? 1.0);
+    return amount * (globals.currency[globals.currentCurrency] ?? 1.0);
   }
 
   @override

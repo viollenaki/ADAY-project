@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:personal_finance/pages/LogingRegister.dart' as globals;
+import 'package:personal_finance/database/globals.dart' as globals;
 
 class SettingsScreen extends StatefulWidget {
   const SettingsScreen({super.key});

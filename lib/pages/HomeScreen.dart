@@ -2,16 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:personal_finance/pages/AddTransactionScreen.dart';
 import 'package:personal_finance/database/database_helper.dart';
 import 'package:personal_finance/widgets/summary_card.dart';
-import 'package:personal_finance/pages/LogingRegister.dart' as globals;
-
-//Currency
-Map<String, double> currency = {
-  'USD': 1,
-  'EUR': 0.9,
-  'INR': 85,
-  'KGS':85,
-};
-//
+import 'package:personal_finance/pages/Category.dart';
+import 'package:personal_finance/database/globals.dart' as globals;
+import 'package:http/http.dart' as http;
+import 'package:xml/xml.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -35,6 +29,7 @@ class _HomeScreenState extends State<HomeScreen> {
     dbHelper = DatabaseHelper();
     _loadData();
     _getEmailOnce();
+    _fetchCurrencyRates();
   }
 
   // Load transactions and summary data
@@ -44,7 +39,53 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   double convertCurrency(double amount) {
-    return amount * (currency[globals.currentCurrency] ?? 1.0);
+    return amount * (globals.currency[globals.currentCurrency] ?? 1.0);
+  }
+
+  Future<Map<String, double>> getCurrencyRelativeToUSD() async {
+    final url = Uri.parse('https://www.cbr.ru/scripts/XML_daily.asp');
+    final response = await http.get(url);
+
+    if (response.statusCode != 200) {
+      throw Exception('Ошибка при получении данных от ЦБ РФ');
+    }
+
+    final document = XmlDocument.parse(response.body);
+    final valutes = document.findAllElements('Valute');
+
+    double? usdToRub; // сколько рублей за 1 USD
+    final Map<String, double> ratesInRub = {};
+
+    for (final valute in valutes) {
+      final charCode = valute.getElement('CharCode')?.text;
+      final nominal = int.parse(valute.getElement('Nominal')?.text ?? '1');
+      final valueStr = valute.getElement('Value')?.text.replaceAll(',', '.');
+      final value = double.parse(valueStr ?? '0');
+
+      final ratePerUnit = value / nominal;
+
+      if (charCode == 'USD') {
+        usdToRub = ratePerUnit;
+      } else {
+        ratesInRub[charCode!] = ratePerUnit;
+      }
+    }
+
+    if (usdToRub == null) {
+      throw Exception('Курс USD не найден');
+    }
+
+    // Преобразуем в: "сколько валюты за 1 доллар"
+    final Map<String, double> currency = {'USD': 1.0};
+
+    for (final entry in ratesInRub.entries) {
+      final code = entry.key;
+      final rubPerUnit = entry.value;
+      final valuePerUSD = usdToRub / rubPerUnit;
+      currency[code] = valuePerUSD;
+    }
+
+    return currency;
   }
 
   void _getEmailOnce() async {
@@ -55,6 +96,17 @@ class _HomeScreenState extends State<HomeScreen> {
           userEmail = email;
         });
       }
+    }
+  }
+  void _fetchCurrencyRates() async {
+    try {
+      final currencyRates = await getCurrencyRelativeToUSD();
+      setState(() {
+        globals.currency = currencyRates; // сохраняем в глобальную переменную
+        print(globals.currency);
+      });
+    } catch (e) {
+      print('Ошибка при получении курса валют: $e');
     }
   }
 
@@ -385,9 +437,12 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
           ListTile(
             leading: const Icon(Icons.category),
-            title: const Text('category'),
+            title: const Text('Сategory'),
             onTap: () {
-              // Navigate to settings (implement later)
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => const CategoryScreen()),
+              );
             },
           ),
           ListTile(

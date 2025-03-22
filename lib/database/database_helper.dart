@@ -20,6 +20,15 @@ class DatabaseHelper {
     return _database!;
   }
 
+  Future<int> insertCategory(String name, String type) async {
+    final db = await database;
+    return await db.insert(
+      'categories',
+      {'name': name, 'type': type},
+      conflictAlgorithm: ConflictAlgorithm.ignore,
+    );
+  }
+
   Future<int> insertUser(String name, String email, String password) async {
     final db = await database;
     return await db.insert(
@@ -47,6 +56,14 @@ class DatabaseHelper {
       return result.first['email'] as String;
     }
     return null;
+  }
+
+  Future<List<String>> getCategoriesByType(String type) async {
+    final db = await database;
+    final List<Map<String, dynamic>> maps =
+    await db.query('categories', where: 'type = ?', whereArgs: [type]);
+
+    return maps.map((map) => map['name'] as String).toList();
   }
 
   Future<Database> _initDatabase() async {
@@ -78,6 +95,22 @@ class DatabaseHelper {
         type TEXT
       )
     ''');
+    // Вставка категорий по умолчанию
+    final defaultCategories = [
+      {'name': 'Food', 'type': 'expense'},
+      {'name': 'Transport', 'type': 'expense'},
+      {'name': 'Shopping', 'type': 'expense'},
+      {'name': 'Bills', 'type': 'expense'},
+      //{'name': 'Other', 'type': 'expense'},
+      {'name': 'Salary', 'type': 'income'},
+      {'name': 'Gift', 'type': 'income'},
+      {'name': 'Investment', 'type': 'income'},
+    ];
+
+    for (var category in defaultCategories) {
+      await db.insert('categories', category);
+    }
+
 
     await db.execute('''
       CREATE TABLE budgets(
