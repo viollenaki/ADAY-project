@@ -149,6 +149,38 @@ class _HomeScreenState extends State<HomeScreen> {
     }
   }
 
+  Future<void> _deleteAllTransactions() async {
+    bool confirmDelete = await showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: const Text("Delete All Transactions"),
+        content: const Text("Are you sure you want to delete all transactions?"),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(context, false),
+            child: const Text("Cancel"),
+          ),
+          TextButton(
+            onPressed: () => Navigator.pop(context, true),
+            child: const Text("Delete", style: TextStyle(color: Colors.red)),
+          ),
+        ],
+      ),
+    );
+
+    if (confirmDelete) {
+      try {
+        final db = await dbHelper.database;
+        await db.delete('transactions');
+        setState(() {
+          _loadData(); // Обновим список
+        });
+      } catch (e) {
+        print("Error deleting all transactions: $e");
+      }
+    }
+  }
+
   void _showLogoutDialog() {
     showDialog(
       context: context,
@@ -450,9 +482,13 @@ class _HomeScreenState extends State<HomeScreen> {
             title: const Text('Logout'),
             onTap: _showLogoutDialog,
           ),
+          ListTile(
+            leading: const Icon(Icons.delete_forever),
+            title: const Text('Delete All'),
+            onTap: _deleteAllTransactions,
+          ),
         ],
       ),
     );
   }
 }
-
