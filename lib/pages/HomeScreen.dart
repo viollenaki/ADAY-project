@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:personal_finance/generated/l10n.dart';
 import 'package:personal_finance/pages/AddTransactionScreen.dart';
 import 'package:personal_finance/database/database_helper.dart';
 import 'package:personal_finance/widgets/summary_card.dart';
@@ -6,6 +7,7 @@ import 'package:personal_finance/pages/Category.dart';
 import 'package:personal_finance/database/globals.dart' as globals;
 import 'package:http/http.dart' as http;
 import 'package:xml/xml.dart';
+import '../main.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -104,7 +106,6 @@ class _HomeScreenState extends State<HomeScreen> {
       final currencyRates = await getCurrencyRelativeToUSD();
       setState(() {
         globals.currency = currencyRates; // сохраняем в глобальную переменную
-        print(globals.currency);
       });
     } catch (e) {
       print('Ошибка при получении курса валют: $e');
@@ -557,14 +558,43 @@ class _HomeScreenState extends State<HomeScreen> {
             },
           ),
           ListTile(
-            leading: const Icon(Icons.logout),
-            title: const Text('Logout'),
-            onTap: _showLogoutDialog,
-          ),
-          ListTile(
             leading: const Icon(Icons.delete_forever),
             title: const Text('Delete All'),
             onTap: _deleteAllTransactions,
+          ),
+          ListTile(
+            leading: const Icon(Icons.logout),
+            title: Text(S.of(context).logout),
+            onTap: _showLogoutDialog,
+          ),
+          ListTile(
+            leading: const Icon(Icons.language),
+            title: Text(S.of(context).language),
+            onTap: () {},
+            trailing: DropdownButton<Locale>(
+              underline: const SizedBox(),
+              value: Localizations.localeOf(context),
+              onChanged: (Locale? locale) {
+                if (locale != null) {
+                  MyApp.setLocale(context, locale);
+                  Navigator.pop(context); // Закрываем меню
+                }
+              },
+              items: const [
+                DropdownMenuItem(
+                  value: Locale('en'),
+                  child: Text('English'),
+                ),
+                DropdownMenuItem(
+                  value: Locale('ru'),
+                  child: Text('Русский'),
+                ),
+                DropdownMenuItem(
+                  value: Locale('ky'),
+                  child: Text('Кыргызча'),
+                ),
+              ],
+            ),
           ),
         ],
       ),

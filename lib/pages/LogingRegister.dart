@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:personal_finance/database/database_helper.dart';
 import 'package:personal_finance/database/globals.dart';
+import 'package:personal_finance/generated/l10n.dart';
 import '../main.dart';
 
 class Loginregister extends StatefulWidget {
@@ -56,7 +57,7 @@ class _LoginregisterState extends State<Loginregister> {
                         ),
                         const SizedBox(height: 16),
                         Text(
-                          _isLogin ? "Welcome Back!" : "Create Account",
+                          _isLogin ? S.of(context).welcomeBack : S.of(context).createAccount,
                           style: const TextStyle(
                             fontSize: 24,
                             fontWeight: FontWeight.bold,

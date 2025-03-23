@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:personal_finance/generated/l10n.dart';
 import 'database/database_helper.dart';
 import 'pages/HomeScreen.dart';
 import 'pages/LogingRegister.dart';
@@ -18,22 +20,73 @@ void main() async {
   runApp(const MyApp());
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
   const MyApp({super.key});
+
+  static void setLocale(BuildContext context, Locale newLocale) {
+    final _MyAppState? state = context.findAncestorStateOfType<_MyAppState>();
+    state?.setLocale(newLocale);
+  }
+
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  Locale? _locale;
+  //Locale _locale = const Locale('en'); // язык по умолчанию
+
+  void setLocale(Locale locale) {
+    setState(() {
+      _locale = locale;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      locale: _locale ?? WidgetsBinding.instance.window.locale,
+      //locale: _locale,
+      localizationsDelegates: const [
+        S.delegate,
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
+      ],
+      supportedLocales: S.delegate.supportedLocales,
       title: 'Personal Finance',
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
       debugShowCheckedModeBanner: false,
-      home: const Loginregister(), // Start with Login/Register screen
+      home: const Loginregister(),
     );
   }
 }
+// class MyApp extends StatelessWidget {
+//   const MyApp({super.key});
+//
+//   @override
+//   Widget build(BuildContext context) {
+//     return MaterialApp(
+//       localizationsDelegates: const [
+//           S.delegate,
+//           GlobalMaterialLocalizations.delegate,
+//           GlobalWidgetsLocalizations.delegate,
+//           GlobalCupertinoLocalizations.delegate,
+//       ],
+//       supportedLocales: S.delegate.supportedLocales,
+//       title: 'Personal Finance',
+//       theme: ThemeData(
+//         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+//         useMaterial3: true,
+//       ),
+//       debugShowCheckedModeBanner: false,
+//       home: const Loginregister(), // Start with Login/Register screen
+//     );
+//   }
+// }
 
 class MainNavigationScreen extends StatefulWidget {
   const MainNavigationScreen({super.key});
