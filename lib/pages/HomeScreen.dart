@@ -98,6 +98,7 @@ class _HomeScreenState extends State<HomeScreen> {
       }
     }
   }
+
   void _fetchCurrencyRates() async {
     try {
       final currencyRates = await getCurrencyRelativeToUSD();
@@ -117,17 +118,21 @@ class _HomeScreenState extends State<HomeScreen> {
 
       // Get total income
       final incomeResult = await db.rawQuery(
-          "SELECT SUM(amount) as total FROM transactions WHERE type = 'income'");
-      _totalIncome = incomeResult.first['total'] != null
-          ? (incomeResult.first['total'] as num).toDouble()
-          : 0.0;
+        "SELECT SUM(amount) as total FROM transactions WHERE type = 'income'",
+      );
+      _totalIncome =
+          incomeResult.first['total'] != null
+              ? (incomeResult.first['total'] as num).toDouble()
+              : 0.0;
 
       // Get total expenses
       final expenseResult = await db.rawQuery(
-          "SELECT SUM(amount) as total FROM transactions WHERE type = 'expense'");
-      _totalExpenses = expenseResult.first['total'] != null
-          ? (expenseResult.first['total'] as num).toDouble()
-          : 0.0;
+        "SELECT SUM(amount) as total FROM transactions WHERE type = 'expense'",
+      );
+      _totalExpenses =
+          expenseResult.first['total'] != null
+              ? (expenseResult.first['total'] as num).toDouble()
+              : 0.0;
 
       // Calculate balance
       _balance = _totalIncome - _totalExpenses;
@@ -152,20 +157,26 @@ class _HomeScreenState extends State<HomeScreen> {
   Future<void> _deleteAllTransactions() async {
     bool confirmDelete = await showDialog(
       context: context,
-      builder: (context) => AlertDialog(
-        title: const Text("Delete All Transactions"),
-        content: const Text("Are you sure you want to delete all transactions?"),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.pop(context, false),
-            child: const Text("Cancel"),
+      builder:
+          (context) => AlertDialog(
+            title: const Text("Delete All Transactions"),
+            content: const Text(
+              "Are you sure you want to delete all transactions?",
+            ),
+            actions: [
+              TextButton(
+                onPressed: () => Navigator.pop(context, false),
+                child: const Text("Cancel"),
+              ),
+              TextButton(
+                onPressed: () => Navigator.pop(context, true),
+                child: const Text(
+                  "Delete",
+                  style: TextStyle(color: Colors.red),
+                ),
+              ),
+            ],
           ),
-          TextButton(
-            onPressed: () => Navigator.pop(context, true),
-            child: const Text("Delete", style: TextStyle(color: Colors.red)),
-          ),
-        ],
-      ),
     );
 
     if (confirmDelete) {
@@ -196,7 +207,9 @@ class _HomeScreenState extends State<HomeScreen> {
             TextButton(
               onPressed: () {
                 Navigator.pushReplacementNamed(
-                    context, '/'); // Navigate to login screen
+                  context,
+                  '/',
+                ); // Navigate to login screen
               },
               child: const Text('Logout'),
             ),
@@ -233,28 +246,46 @@ class _HomeScreenState extends State<HomeScreen> {
       backgroundColor: Colors.white,
       body: Column(
         children: [
-          // Summary Cards
+          // Summary Cards with the new layout style
           Padding(
             padding: const EdgeInsets.all(16.0),
             child: Column(
               children: [
-                SummaryCard(
-                  title: 'Income',
-                  amount: '${globals.currentCurrency} ${convertCurrency(_totalIncome).toStringAsFixed(2)}',
-                  color: Colors.green,
-                  icon: Icons.arrow_upward,
+                // Income and Expenses in a row
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    Expanded(
+                      child: SummaryCard(
+                        title: 'Income',
+                        amount:
+                            '${globals.currentCurrency} ${convertCurrency(_totalIncome).toStringAsFixed(2)}',
+                        color: Colors.green,
+                        icon: Icons.arrow_upward,
+                        titleFontSize: 14.0, // Reduce font size
+                        amountFontSize: 15.0, // Reduce font size
+                      ),
+                    ),
+                    const SizedBox(width: 12), // Space between cards
+                    Expanded(
+                      child: SummaryCard(
+                        title: 'Expenses',
+                        amount:
+                            '${globals.currentCurrency} ${convertCurrency(_totalExpenses).toStringAsFixed(2)}',
+                        color: Colors.red,
+                        icon: Icons.arrow_downward,
+                        titleFontSize: 14.0, // Reduce font size
+                        amountFontSize: 15.0, // Reduce font size
+                      ),
+                    ),
+                  ],
                 ),
                 const SizedBox(height: 12),
-                SummaryCard(
-                  title: 'Expenses',
-                  amount: '${globals.currentCurrency} ${convertCurrency(_totalExpenses).toStringAsFixed(2)}',
-                  color: Colors.red,
-                  icon: Icons.arrow_downward,
-                ),
-                const SizedBox(height: 12),
+                // Balance on its own line
                 SummaryCard(
                   title: 'Balance',
-                  amount: '${globals.currentCurrency} ${convertCurrency(_balance).toStringAsFixed(2)}',
+                  amount:
+                      '${globals.currentCurrency} ${convertCurrency(_balance).toStringAsFixed(2)}',
                   color: Colors.blue,
                   icon: Icons.account_balance_wallet,
                 ),
@@ -262,34 +293,71 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
           ),
 
-          // Recent Transactions
+          // Recent Transactions with improved styling
           Expanded(
-            child: RefreshIndicator(
-              onRefresh: () async {
-                setState(() {
-                  _loadData(); // Refresh data
-                });
-              },
-              child: FutureBuilder<List<Map<String, dynamic>>>(
-                future: _transactionsFuture,
-                builder: (context, snapshot) {
-                  if (snapshot.connectionState == ConnectionState.waiting) {
-                    return const Center(child: CircularProgressIndicator());
-                  } else if (snapshot.hasError) {
-                    return Center(child: Text('Error: ${snapshot.error}'));
-                  } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
-                    return const Center(child: Text('No transactions yet.'));
-                  }
+            child: Container(
+              margin: const EdgeInsets.only(top: 8),
+              padding: const EdgeInsets.all(12),
+              decoration: BoxDecoration(
+                color: Colors.grey[100],
+                borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(15),
+                  topRight: Radius.circular(15),
+                ),
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const Padding(
+                    padding: EdgeInsets.only(left: 16.0, bottom: 8.0),
+                    child: Text(
+                      "Recent Transactions",
+                      style: TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.black87,
+                      ),
+                    ),
+                  ),
+                  Expanded(
+                    child: RefreshIndicator(
+                      onRefresh: () async {
+                        setState(() {
+                          _loadData(); // Refresh data
+                        });
+                      },
+                      child: FutureBuilder<List<Map<String, dynamic>>>(
+                        future: _transactionsFuture,
+                        builder: (context, snapshot) {
+                          if (snapshot.connectionState ==
+                              ConnectionState.waiting) {
+                            return const Center(
+                              child: CircularProgressIndicator(),
+                            );
+                          } else if (snapshot.hasError) {
+                            return Center(
+                              child: Text('Error: ${snapshot.error}'),
+                            );
+                          } else if (!snapshot.hasData ||
+                              snapshot.data!.isEmpty) {
+                            return const Center(
+                              child: Text('No transactions yet.'),
+                            );
+                          }
 
-                  final transactions = snapshot.data!;
-                  return ListView.builder(
-                    itemCount: transactions.length,
-                    itemBuilder: (context, index) {
-                      final transaction = transactions[index];
-                      return _buildTransactionTile(transaction);
-                    },
-                  );
-                },
+                          final transactions = snapshot.data!;
+                          return ListView.builder(
+                            itemCount: transactions.length,
+                            itemBuilder: (context, index) {
+                              final transaction = transactions[index];
+                              return _buildTransactionTile(transaction);
+                            },
+                          );
+                        },
+                      ),
+                    ),
+                  ),
+                ],
               ),
             ),
           ),
@@ -356,7 +424,9 @@ class _HomeScreenState extends State<HomeScreen> {
 
   // Show options for Edit and Delete
   void _showTransactionActions(
-      BuildContext context, Map<String, dynamic> transaction) {
+    BuildContext context,
+    Map<String, dynamic> transaction,
+  ) {
     showDialog(
       context: context,
       builder: (BuildContext context) {
@@ -375,7 +445,8 @@ class _HomeScreenState extends State<HomeScreen> {
               onPressed: () async {
                 Navigator.pop(context);
                 await _deleteTransaction(
-                    transaction['id']); // Delete Transaction
+                  transaction['id'],
+                ); // Delete Transaction
               },
               child: const Text("Delete", style: TextStyle(color: Colors.red)),
             ),
@@ -405,28 +476,36 @@ class _HomeScreenState extends State<HomeScreen> {
   Future<void> _deleteTransaction(int transactionId) async {
     bool confirmDelete = await showDialog(
       context: context,
-      builder: (context) => AlertDialog(
-        title: const Text("Delete Transaction"),
-        content:
-            const Text("Are you sure you want to delete this transaction?"),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.pop(context, false),
-            child: const Text("Cancel"),
+      builder:
+          (context) => AlertDialog(
+            title: const Text("Delete Transaction"),
+            content: const Text(
+              "Are you sure you want to delete this transaction?",
+            ),
+            actions: [
+              TextButton(
+                onPressed: () => Navigator.pop(context, false),
+                child: const Text("Cancel"),
+              ),
+              TextButton(
+                onPressed: () => Navigator.pop(context, true),
+                child: const Text(
+                  "Delete",
+                  style: TextStyle(color: Colors.red),
+                ),
+              ),
+            ],
           ),
-          TextButton(
-            onPressed: () => Navigator.pop(context, true),
-            child: const Text("Delete", style: TextStyle(color: Colors.red)),
-          ),
-        ],
-      ),
     );
 
     if (confirmDelete) {
       try {
         final db = await dbHelper.database;
-        await db.delete('transactions',
-            where: 'id = ?', whereArgs: [transactionId]);
+        await db.delete(
+          'transactions',
+          where: 'id = ?',
+          whereArgs: [transactionId],
+        );
         setState(() {
           _loadData(); // Refresh transactions and summary data
         });

@@ -1,0 +1,2 @@
+C:/Users/akbar/Desktop/ADAY/ADAY-project/android/app/.cxx/Debug/2c3n6b31/armeabi-v7a/CMakeFiles/edit_cache.dir
+C:/Users/akbar/Desktop/ADAY/ADAY-project/android/app/.cxx/Debug/2c3n6b31/armeabi-v7a/CMakeFiles/rebuild_cache.dir
