@@ -724,7 +724,6 @@ class _ReportsScreenState extends State<ReportsScreen> {
     final orderedCategories = _getOrderedCategories(categoryData);
 
     return orderedCategories.asMap().entries.map((entry) {
-      final int index = entry.key;
       final String category = entry.value;
       final isSelected = category == selectedCategory;
 

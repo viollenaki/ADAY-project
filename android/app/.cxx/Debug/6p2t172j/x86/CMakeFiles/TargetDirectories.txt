@@ -1,0 +1,2 @@
+C:/Users/akbar/Desktop/team_work/ADAY-project/android/app/.cxx/Debug/6p2t172j/x86/CMakeFiles/edit_cache.dir
+C:/Users/akbar/Desktop/team_work/ADAY-project/android/app/.cxx/Debug/6p2t172j/x86/CMakeFiles/rebuild_cache.dir
