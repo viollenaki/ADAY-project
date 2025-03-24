@@ -53,7 +53,7 @@
   "expenseOverview": "Expense Overview",
   "monthlySpendingTrends": "Monthly Spending Trends",
   "filters": "Filters",
-  "tyypeee": "Tyypeee",
+  "tyypeee": "Type",
   "selectStartDate": "Select Start Date",
   "selectEndDate": "Select End Date",
   "filterByCategory": "Filter by Category",
@@ -82,5 +82,8 @@
   "home": "Home",
   "history": "History",
   "reports": "Reports",
-  "settings": "Settings"
+  "settings": "Settings",
+  "other": "Other",
+  "category": "Category",
+  "date": "Date"
 }

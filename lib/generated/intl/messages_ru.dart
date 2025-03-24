@@ -50,6 +50,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "balance": MessageLookupByLibrary.simpleMessage("Баланс"),
     "cancel": MessageLookupByLibrary.simpleMessage("Отмена"),
     "categories": MessageLookupByLibrary.simpleMessage("Категории"),
+    "category": MessageLookupByLibrary.simpleMessage("Категория"),
     "categoryAddedSuccessfully": MessageLookupByLibrary.simpleMessage(
       "Категория успешно добавлена",
     ),
@@ -60,6 +61,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "categoryType": MessageLookupByLibrary.simpleMessage("Тип категории"),
     "createAccount": MessageLookupByLibrary.simpleMessage("Зарегистрироваться"),
     "darkMode": MessageLookupByLibrary.simpleMessage("Темный режим"),
+    "date": MessageLookupByLibrary.simpleMessage("Дата"),
     "delete": MessageLookupByLibrary.simpleMessage("Удалить"),
     "deleteAll": MessageLookupByLibrary.simpleMessage("Удалить все"),
     "deleteAllTransactions": MessageLookupByLibrary.simpleMessage(
@@ -134,6 +136,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "noTransactionsYet": MessageLookupByLibrary.simpleMessage(
       "Транзакций пока нет.",
     ),
+    "other": MessageLookupByLibrary.simpleMessage("Другое"),
     "password": MessageLookupByLibrary.simpleMessage("Пароль"),
     "personalFinance": MessageLookupByLibrary.simpleMessage("Личные финансы"),
     "pleaseEnterAPassword": MessageLookupByLibrary.simpleMessage(
@@ -179,7 +182,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "История транзакций",
     ),
     "type": MessageLookupByLibrary.simpleMessage("Тип"),
-    "tyypeee": MessageLookupByLibrary.simpleMessage("Tyypeee"),
+    "tyypeee": MessageLookupByLibrary.simpleMessage("Тип"),
     "updateTransaction": MessageLookupByLibrary.simpleMessage(
       "Транзакция обновления",
     ),

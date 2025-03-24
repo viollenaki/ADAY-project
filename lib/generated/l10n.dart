@@ -490,9 +490,9 @@ class S {
     return Intl.message('Filters', name: 'filters', desc: '', args: []);
   }
 
-  /// `Tyypeee`
+  /// `Type`
   String get tyypeee {
-    return Intl.message('Tyypeee', name: 'tyypeee', desc: '', args: []);
+    return Intl.message('Type', name: 'tyypeee', desc: '', args: []);
   }
 
   /// `Select Start Date`
@@ -733,6 +733,21 @@ class S {
   /// `Settings`
   String get settings {
     return Intl.message('Settings', name: 'settings', desc: '', args: []);
+  }
+
+  /// `Other`
+  String get other {
+    return Intl.message('Other', name: 'other', desc: '', args: []);
+  }
+
+  /// `Category`
+  String get category {
+    return Intl.message('Category', name: 'category', desc: '', args: []);
+  }
+
+  /// `Date`
+  String get date {
+    return Intl.message('Date', name: 'date', desc: '', args: []);
   }
 }
 

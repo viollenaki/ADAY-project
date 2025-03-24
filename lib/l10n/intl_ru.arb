@@ -53,7 +53,7 @@
   "expenseOverview": "Обзор расходов",
   "monthlySpendingTrends": "Тенденции ежемесячных расходов",
   "filters": "Фильтры",
-  "tyypeee": "Tyypeee",
+  "tyypeee": "Тип",
   "selectStartDate": "Выберите дату начала",
   "selectEndDate": "Выберите дату окончания",
   "filterByCategory": "Фильтр по категории",
@@ -82,5 +82,8 @@
   "home": "Домой",
   "history": "История",
   "reports": "Отчеты",
-  "settings": "Настройки"
+  "settings": "Настройки",
+  "other": "Другое",
+  "category": "Категория",
+  "date": "Дата"
 }
