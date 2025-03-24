@@ -563,11 +563,6 @@ class _HomeScreenState extends State<HomeScreen> {
             onTap: _deleteAllTransactions,
           ),
           ListTile(
-            leading: const Icon(Icons.logout),
-            title: Text(S.of(context).logout),
-            onTap: _showLogoutDialog,
-          ),
-          ListTile(
             leading: const Icon(Icons.language),
             title: Text(S.of(context).language),
             onTap: () {},
@@ -595,6 +590,11 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
               ],
             ),
+          ),
+          ListTile(
+            leading: const Icon(Icons.logout),
+            title: Text(S.of(context).logout),
+            onTap: _showLogoutDialog,
           ),
         ],
       ),
