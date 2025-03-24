@@ -172,7 +172,7 @@ class _MainNavigationScreenState extends State<MainNavigationScreen> {
                     color: Colors.blueAccent,
                   ),
                 ),
-                label: 'Homesss',
+                label: 'Home',
               ),
               NavigationDestination(
                 icon: Container(
