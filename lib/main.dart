@@ -54,7 +54,7 @@ class _MyAppState extends State<MyApp> {
         GlobalCupertinoLocalizations.delegate,
       ],
       supportedLocales: S.delegate.supportedLocales,
-      title: 'Personal2 Finance',
+      title: 'Personal Financesss',
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
