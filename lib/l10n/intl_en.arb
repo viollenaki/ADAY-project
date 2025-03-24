@@ -1,6 +1,4 @@
 {
-  "welcomeBack": "Welcome Back!",
-  "createAccount": "Create Account",
   "language": "Language",
   "logout": "Logout",
   "personalFinance": "Personal Finance",
@@ -22,5 +20,19 @@
   "account": "Account",
   "ategory": "Сategory",
   "deleteAll": "Delete All",
-  "noTransactionsYet": "No transactions yet."
+  "noTransactionsYet": "No transactions yet.",
+  "welcomeBack": "Welcome Back!",
+  "createAccount": "Create Account",
+  "username": "Username",
+  "pleaseEnterAUsername": "Please enter a username",
+  "password": "Password",
+  "pleaseEnterAPassword": "Please enter a password",
+  "email": "Email",
+  "pleaseEnterAnEmail": "Please enter an email",
+  "pleaseEnterAValidEmail": "Please enter a valid email",
+  "userAlreadyExistsOrRegistrationFailed": "User already exists or registration failed.",
+  "login": "Login",
+  "register": "Register",
+  "dontHaveAnAccountRegister": "Don't have an account? Register",
+  "alreadyHaveAnAccountLogin": "Already have an account? Login"
 }

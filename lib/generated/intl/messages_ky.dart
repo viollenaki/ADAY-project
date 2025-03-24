@@ -23,6 +23,9 @@ class MessageLookup extends MessageLookupByLibrary {
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
     "account": MessageLookupByLibrary.simpleMessage("Акаунт"),
+    "alreadyHaveAnAccountLogin": MessageLookupByLibrary.simpleMessage(
+      "Каттоо эсебиңиз барбы? Кирүү",
+    ),
     "areYouSureYouWantToDeleteAllTransactions":
         MessageLookupByLibrary.simpleMessage(
           "Бардык транзакцияларды чын эле жок кылгыңыз келеби?",
@@ -46,22 +49,46 @@ class MessageLookup extends MessageLookupByLibrary {
     "deleteTransaction": MessageLookupByLibrary.simpleMessage(
       "Транзакцияны жок кылуу",
     ),
+    "dontHaveAnAccountRegister": MessageLookupByLibrary.simpleMessage(
+      "Каттоо эсебиңиз жокпу? Каттоо",
+    ),
     "edit": MessageLookupByLibrary.simpleMessage("Түзөтүү"),
+    "email": MessageLookupByLibrary.simpleMessage("Электронная почта"),
     "expenses": MessageLookupByLibrary.simpleMessage("Чыгымдар"),
     "guest": MessageLookupByLibrary.simpleMessage("Конок"),
     "income": MessageLookupByLibrary.simpleMessage("Киреше"),
     "language": MessageLookupByLibrary.simpleMessage("Тил"),
+    "login": MessageLookupByLibrary.simpleMessage("Кирүү"),
     "logout": MessageLookupByLibrary.simpleMessage("Чыгуу"),
     "noTransactionsYet": MessageLookupByLibrary.simpleMessage(
       "Азырынча транзакциялар жок.",
     ),
+    "password": MessageLookupByLibrary.simpleMessage("Купуя сөз"),
     "personalFinance": MessageLookupByLibrary.simpleMessage("Жеке каржы"),
+    "pleaseEnterAPassword": MessageLookupByLibrary.simpleMessage(
+      "Сырсөздү киргизиңиз",
+    ),
+    "pleaseEnterAUsername": MessageLookupByLibrary.simpleMessage(
+      "Сураныч, колдонуучу атын киргизиңиз",
+    ),
+    "pleaseEnterAValidEmail": MessageLookupByLibrary.simpleMessage(
+      "Жарактуу электрондук почтаны киргизиңиз",
+    ),
+    "pleaseEnterAnEmail": MessageLookupByLibrary.simpleMessage(
+      "Сураныч, электрондук почтаны киргизиңиз",
+    ),
     "recentTransactions": MessageLookupByLibrary.simpleMessage(
       "Акыркы транзакциялар",
     ),
+    "register": MessageLookupByLibrary.simpleMessage("Каттоо"),
     "transactionActions": MessageLookupByLibrary.simpleMessage(
       "Транзакция аракеттери",
     ),
+    "userAlreadyExistsOrRegistrationFailed":
+        MessageLookupByLibrary.simpleMessage(
+          "Колдонуучу мурунтан эле бар же каттоодон өткөн жок.",
+        ),
+    "username": MessageLookupByLibrary.simpleMessage("Колдонуучунун аты"),
     "welcomeBack": MessageLookupByLibrary.simpleMessage("Кайра кош келиңиз!"),
     "whatWouldYouLikeToDo": MessageLookupByLibrary.simpleMessage(
       "Эмне кылгыңыз келет?",

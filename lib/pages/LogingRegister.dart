@@ -72,12 +72,12 @@ class _LoginregisterState extends State<Loginregister> {
                             border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(8),
                             ),
-                            labelText: 'Username',
+                            labelText: S.of(context).username,
                             prefixIcon: const Icon(Icons.person),
                           ),
                           validator: (value) {
                             if (value == null || value.isEmpty) {
-                              return 'Please enter a username';
+                              return S.of(context).pleaseEnterAUsername;
                             }
                             return null;
                           },
@@ -90,7 +90,7 @@ class _LoginregisterState extends State<Loginregister> {
                           decoration: InputDecoration(
                             border: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(8)),
-                            labelText: 'Password',
+                            labelText: S.of(context).password,
                             prefixIcon: const Icon(Icons.lock),
                             suffixIcon: IconButton(
                               icon: Icon(
@@ -107,7 +107,7 @@ class _LoginregisterState extends State<Loginregister> {
                           ),
                           validator: (value) {
                             if (value == null || value.isEmpty) {
-                              return 'Please enter a password';
+                              return S.of(context).pleaseEnterAPassword;
                             }
                             return null;
                           },
@@ -120,15 +120,15 @@ class _LoginregisterState extends State<Loginregister> {
                             decoration: InputDecoration(
                               border: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(8)),
-                              labelText: 'Email',
+                              labelText: S.of(context).email,
                               prefixIcon: const Icon(Icons.email),
                             ),
                             validator: (value) {
                               if (value == null || value.isEmpty) {
-                                return 'Please enter an email';
+                                return S.of(context).pleaseEnterAnEmail;
                               }
                               if (!value.contains('@')) {
-                                return 'Please enter a valid email';
+                                return S.of(context).pleaseEnterAValidEmail;
                               }
                               return null;
                             },
@@ -165,7 +165,7 @@ class _LoginregisterState extends State<Loginregister> {
                                       );
                                     } else {
                                       ScaffoldMessenger.of(context).showSnackBar(
-                                        const SnackBar(content: Text("User already exists or registration failed.")),
+                                        SnackBar(content: Text(S.of(context).userAlreadyExistsOrRegistrationFailed)),
                                       );
                                     }
                                   });
@@ -183,7 +183,7 @@ class _LoginregisterState extends State<Loginregister> {
                               backgroundColor: Colors.deepPurple,
                             ),
                             child: Text(
-                              _isLogin ? "Login" : "Register",
+                              _isLogin ? S.of(context).login : S.of(context).register,
                               style: const TextStyle(
                                   fontSize: 18,
                                   color: Color.fromARGB(255, 255, 255, 255),
@@ -202,8 +202,8 @@ class _LoginregisterState extends State<Loginregister> {
                           },
                           child: Text(
                             _isLogin
-                                ? "Don't have an account? Register"
-                                : "Already have an account? Login",
+                                ? S.of(context).dontHaveAnAccountRegister
+                                : S.of(context).alreadyHaveAnAccountLogin,
                             style: const TextStyle(color: Colors.deepPurple),
                           ),
                         ),

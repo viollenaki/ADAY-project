@@ -55,26 +55,6 @@ class S {
     return Localizations.of<S>(context, S);
   }
 
-  /// `Welcome Back!`
-  String get welcomeBack {
-    return Intl.message(
-      'Welcome Back!',
-      name: 'welcomeBack',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Create Account`
-  String get createAccount {
-    return Intl.message(
-      'Create Account',
-      name: 'createAccount',
-      desc: '',
-      args: [],
-    );
-  }
-
   /// `Language`
   String get language {
     return Intl.message('Language', name: 'language', desc: '', args: []);
@@ -230,6 +210,121 @@ class S {
     return Intl.message(
       'No transactions yet.',
       name: 'noTransactionsYet',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Welcome Back!`
+  String get welcomeBack {
+    return Intl.message(
+      'Welcome Back!',
+      name: 'welcomeBack',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Create Account`
+  String get createAccount {
+    return Intl.message(
+      'Create Account',
+      name: 'createAccount',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Username`
+  String get username {
+    return Intl.message('Username', name: 'username', desc: '', args: []);
+  }
+
+  /// `Please enter a username`
+  String get pleaseEnterAUsername {
+    return Intl.message(
+      'Please enter a username',
+      name: 'pleaseEnterAUsername',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Password`
+  String get password {
+    return Intl.message('Password', name: 'password', desc: '', args: []);
+  }
+
+  /// `Please enter a password`
+  String get pleaseEnterAPassword {
+    return Intl.message(
+      'Please enter a password',
+      name: 'pleaseEnterAPassword',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Email`
+  String get email {
+    return Intl.message('Email', name: 'email', desc: '', args: []);
+  }
+
+  /// `Please enter an email`
+  String get pleaseEnterAnEmail {
+    return Intl.message(
+      'Please enter an email',
+      name: 'pleaseEnterAnEmail',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Please enter a valid email`
+  String get pleaseEnterAValidEmail {
+    return Intl.message(
+      'Please enter a valid email',
+      name: 'pleaseEnterAValidEmail',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `User already exists or registration failed.`
+  String get userAlreadyExistsOrRegistrationFailed {
+    return Intl.message(
+      'User already exists or registration failed.',
+      name: 'userAlreadyExistsOrRegistrationFailed',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Login`
+  String get login {
+    return Intl.message('Login', name: 'login', desc: '', args: []);
+  }
+
+  /// `Register`
+  String get register {
+    return Intl.message('Register', name: 'register', desc: '', args: []);
+  }
+
+  /// `Don't have an account? Register`
+  String get dontHaveAnAccountRegister {
+    return Intl.message(
+      'Don\'t have an account? Register',
+      name: 'dontHaveAnAccountRegister',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Already have an account? Login`
+  String get alreadyHaveAnAccountLogin {
+    return Intl.message(
+      'Already have an account? Login',
+      name: 'alreadyHaveAnAccountLogin',
       desc: '',
       args: [],
     );
