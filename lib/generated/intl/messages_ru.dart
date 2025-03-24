@@ -22,9 +22,49 @@ class MessageLookup extends MessageLookupByLibrary {
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
+    "account": MessageLookupByLibrary.simpleMessage("Акаунт"),
+    "areYouSureYouWantToDeleteAllTransactions":
+        MessageLookupByLibrary.simpleMessage(
+          "Вы уверены, что хотите удалить все транзакции?",
+        ),
+    "areYouSureYouWantToDeleteThisTransaction":
+        MessageLookupByLibrary.simpleMessage(
+          "Вы уверены, что хотите удалить эту транзакцию?",
+        ),
+    "areYouSureYouWantToLogout": MessageLookupByLibrary.simpleMessage(
+      "Вы уверены, что хотите выйти?",
+    ),
+    "ategory": MessageLookupByLibrary.simpleMessage("Категория"),
+    "balance": MessageLookupByLibrary.simpleMessage("Баланс"),
+    "cancel": MessageLookupByLibrary.simpleMessage("Отмена"),
     "createAccount": MessageLookupByLibrary.simpleMessage("Зарегистрироваться"),
+    "delete": MessageLookupByLibrary.simpleMessage("Удалить"),
+    "deleteAll": MessageLookupByLibrary.simpleMessage("Удалить все"),
+    "deleteAllTransactions": MessageLookupByLibrary.simpleMessage(
+      "Удалить все транзакции",
+    ),
+    "deleteTransaction": MessageLookupByLibrary.simpleMessage(
+      "Удалить транзакцию",
+    ),
+    "edit": MessageLookupByLibrary.simpleMessage("Редактировать"),
+    "expenses": MessageLookupByLibrary.simpleMessage("Затраты"),
+    "guest": MessageLookupByLibrary.simpleMessage("Гость"),
+    "income": MessageLookupByLibrary.simpleMessage("Доход"),
     "language": MessageLookupByLibrary.simpleMessage("Язык"),
     "logout": MessageLookupByLibrary.simpleMessage("Выйти"),
+    "noTransactionsYet": MessageLookupByLibrary.simpleMessage(
+      "Транзакций пока нет.",
+    ),
+    "personalFinance": MessageLookupByLibrary.simpleMessage("Личные финансы"),
+    "recentTransactions": MessageLookupByLibrary.simpleMessage(
+      "Недавние транзакции",
+    ),
+    "transactionActions": MessageLookupByLibrary.simpleMessage(
+      "Действия транзакции",
+    ),
     "welcomeBack": MessageLookupByLibrary.simpleMessage("Добро пожаловать!"),
+    "whatWouldYouLikeToDo": MessageLookupByLibrary.simpleMessage(
+      "Что бы вы хотели сделать?",
+    ),
   };
 }
