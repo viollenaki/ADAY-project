@@ -407,7 +407,7 @@ class _HomeScreenState extends State<HomeScreen> {
           style: const TextStyle(fontWeight: FontWeight.bold),
         ),
         subtitle: Text(
-          '${transaction['description']} - ${transaction['date']}',
+          '${transaction['date']}',
           style: TextStyle(color: Colors.grey.shade600, fontSize: 12),
         ),
         trailing: Text(
