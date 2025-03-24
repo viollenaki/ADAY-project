@@ -22,9 +22,49 @@ class MessageLookup extends MessageLookupByLibrary {
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
+    "account": MessageLookupByLibrary.simpleMessage("Акаунт"),
+    "areYouSureYouWantToDeleteAllTransactions":
+        MessageLookupByLibrary.simpleMessage(
+          "Бардык транзакцияларды чын эле жок кылгыңыз келеби?",
+        ),
+    "areYouSureYouWantToDeleteThisTransaction":
+        MessageLookupByLibrary.simpleMessage(
+          "Бул транзакцияны чын эле жок кылгыңыз келеби?",
+        ),
+    "areYouSureYouWantToLogout": MessageLookupByLibrary.simpleMessage(
+      "Чын эле чыгасызбы?",
+    ),
+    "ategory": MessageLookupByLibrary.simpleMessage("Категория"),
+    "balance": MessageLookupByLibrary.simpleMessage("Баланс"),
+    "cancel": MessageLookupByLibrary.simpleMessage("Жокко чыгаруу"),
     "createAccount": MessageLookupByLibrary.simpleMessage("Эсеп түзүү"),
+    "delete": MessageLookupByLibrary.simpleMessage("Жок кылуу"),
+    "deleteAll": MessageLookupByLibrary.simpleMessage("Баарын жок кылуу"),
+    "deleteAllTransactions": MessageLookupByLibrary.simpleMessage(
+      "Бардык транзакцияларды жок кылуу",
+    ),
+    "deleteTransaction": MessageLookupByLibrary.simpleMessage(
+      "Транзакцияны жок кылуу",
+    ),
+    "edit": MessageLookupByLibrary.simpleMessage("Түзөтүү"),
+    "expenses": MessageLookupByLibrary.simpleMessage("Чыгымдар"),
+    "guest": MessageLookupByLibrary.simpleMessage("Конок"),
+    "income": MessageLookupByLibrary.simpleMessage("Киреше"),
     "language": MessageLookupByLibrary.simpleMessage("Тил"),
     "logout": MessageLookupByLibrary.simpleMessage("Чыгуу"),
+    "noTransactionsYet": MessageLookupByLibrary.simpleMessage(
+      "Азырынча транзакциялар жок.",
+    ),
+    "personalFinance": MessageLookupByLibrary.simpleMessage("Жеке каржы"),
+    "recentTransactions": MessageLookupByLibrary.simpleMessage(
+      "Акыркы транзакциялар",
+    ),
+    "transactionActions": MessageLookupByLibrary.simpleMessage(
+      "Транзакция аракеттери",
+    ),
     "welcomeBack": MessageLookupByLibrary.simpleMessage("Кайра кош келиңиз!"),
+    "whatWouldYouLikeToDo": MessageLookupByLibrary.simpleMessage(
+      "Эмне кылгыңыз келет?",
+    ),
   };
 }

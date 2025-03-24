@@ -84,6 +84,156 @@ class S {
   String get logout {
     return Intl.message('Logout', name: 'logout', desc: '', args: []);
   }
+
+  /// `Personal Finance`
+  String get personalFinance {
+    return Intl.message(
+      'Personal Finance',
+      name: 'personalFinance',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Delete All Transactions`
+  String get deleteAllTransactions {
+    return Intl.message(
+      'Delete All Transactions',
+      name: 'deleteAllTransactions',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Are you sure you want to delete all transactions?`
+  String get areYouSureYouWantToDeleteAllTransactions {
+    return Intl.message(
+      'Are you sure you want to delete all transactions?',
+      name: 'areYouSureYouWantToDeleteAllTransactions',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Cancel`
+  String get cancel {
+    return Intl.message('Cancel', name: 'cancel', desc: '', args: []);
+  }
+
+  /// `Delete`
+  String get delete {
+    return Intl.message('Delete', name: 'delete', desc: '', args: []);
+  }
+
+  /// `Are you sure you want to logout?`
+  String get areYouSureYouWantToLogout {
+    return Intl.message(
+      'Are you sure you want to logout?',
+      name: 'areYouSureYouWantToLogout',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Income`
+  String get income {
+    return Intl.message('Income', name: 'income', desc: '', args: []);
+  }
+
+  /// `Expenses`
+  String get expenses {
+    return Intl.message('Expenses', name: 'expenses', desc: '', args: []);
+  }
+
+  /// `Balance`
+  String get balance {
+    return Intl.message('Balance', name: 'balance', desc: '', args: []);
+  }
+
+  /// `Recent Transactions`
+  String get recentTransactions {
+    return Intl.message(
+      'Recent Transactions',
+      name: 'recentTransactions',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Transaction Actions`
+  String get transactionActions {
+    return Intl.message(
+      'Transaction Actions',
+      name: 'transactionActions',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `What would you like to do?`
+  String get whatWouldYouLikeToDo {
+    return Intl.message(
+      'What would you like to do?',
+      name: 'whatWouldYouLikeToDo',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Edit`
+  String get edit {
+    return Intl.message('Edit', name: 'edit', desc: '', args: []);
+  }
+
+  /// `Delete Transaction`
+  String get deleteTransaction {
+    return Intl.message(
+      'Delete Transaction',
+      name: 'deleteTransaction',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Are you sure you want to delete this transaction?`
+  String get areYouSureYouWantToDeleteThisTransaction {
+    return Intl.message(
+      'Are you sure you want to delete this transaction?',
+      name: 'areYouSureYouWantToDeleteThisTransaction',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Guest`
+  String get guest {
+    return Intl.message('Guest', name: 'guest', desc: '', args: []);
+  }
+
+  /// `Account`
+  String get account {
+    return Intl.message('Account', name: 'account', desc: '', args: []);
+  }
+
+  /// `Сategory`
+  String get ategory {
+    return Intl.message('Сategory', name: 'ategory', desc: '', args: []);
+  }
+
+  /// `Delete All`
+  String get deleteAll {
+    return Intl.message('Delete All', name: 'deleteAll', desc: '', args: []);
+  }
+
+  /// `No transactions yet.`
+  String get noTransactionsYet {
+    return Intl.message(
+      'No transactions yet.',
+      name: 'noTransactionsYet',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

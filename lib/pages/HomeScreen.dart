@@ -160,19 +160,19 @@ class _HomeScreenState extends State<HomeScreen> {
       context: context,
       builder:
           (context) => AlertDialog(
-            title: const Text("Delete All Transactions"),
-            content: const Text(
-              "Are you sure you want to delete all transactions?",
+            title: Text(S.of(context).deleteAllTransactions),
+            content: Text(
+              S.of(context).areYouSureYouWantToDeleteAllTransactions,
             ),
             actions: [
               TextButton(
                 onPressed: () => Navigator.pop(context, false),
-                child: const Text("Cancel"),
+                child: Text(S.of(context).cancel),
               ),
               TextButton(
                 onPressed: () => Navigator.pop(context, true),
-                child: const Text(
-                  "Delete",
+                child:  Text(
+                  S.of(context).delete,
                   style: TextStyle(color: Colors.red),
                 ),
               ),
@@ -198,12 +198,12 @@ class _HomeScreenState extends State<HomeScreen> {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: const Text('Logout'),
-          content: const Text('Are you sure you want to logout?'),
+          title: Text(S.of(context).logout),
+          content: Text(S.of(context).areYouSureYouWantToLogout),
           actions: [
             TextButton(
               onPressed: () => Navigator.pop(context), // Close dialog
-              child: const Text('Cancel'),
+              child: Text(S.of(context).cancel),
             ),
             TextButton(
               onPressed: () {
@@ -212,7 +212,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   '/',
                 ); // Navigate to login screen
               },
-              child: const Text('Logout'),
+              child: Text(S.of(context).logout),
             ),
           ],
         );
@@ -224,8 +224,8 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text(
-          'Personal Finance',
+        title: Text(
+          S.of(context).personalFinance,
           style: TextStyle(
             color: Colors.white,
             fontSize: 22,
@@ -258,7 +258,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   children: [
                     Expanded(
                       child: SummaryCard(
-                        title: 'Income',
+                        title: S.of(context).income,
                         amount:
                             '${globals.currentCurrency} ${convertCurrency(_totalIncome).toStringAsFixed(2)}',
                         color: Colors.green,
@@ -270,7 +270,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     const SizedBox(width: 12), // Space between cards
                     Expanded(
                       child: SummaryCard(
-                        title: 'Expenses',
+                        title: S.of(context).expenses,
                         amount:
                             '${globals.currentCurrency} ${convertCurrency(_totalExpenses).toStringAsFixed(2)}',
                         color: Colors.red,
@@ -284,7 +284,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 const SizedBox(height: 12),
                 // Balance on its own line
                 SummaryCard(
-                  title: 'Balance',
+                  title: S.of(context).balance,
                   amount:
                       '${globals.currentCurrency} ${convertCurrency(_balance).toStringAsFixed(2)}',
                   color: Colors.blue,
@@ -309,10 +309,10 @@ class _HomeScreenState extends State<HomeScreen> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const Padding(
+                   Padding(
                     padding: EdgeInsets.only(left: 16.0, bottom: 8.0),
                     child: Text(
-                      "Recent Transactions",
+                      S.of(context).recentTransactions,
                       style: TextStyle(
                         fontSize: 20,
                         fontWeight: FontWeight.bold,
@@ -341,8 +341,8 @@ class _HomeScreenState extends State<HomeScreen> {
                             );
                           } else if (!snapshot.hasData ||
                               snapshot.data!.isEmpty) {
-                            return const Center(
-                              child: Text('No transactions yet.'),
+                            return Center(
+                              child: Text(S.of(context).noTransactionsYet),
                             );
                           }
 
@@ -432,15 +432,15 @@ class _HomeScreenState extends State<HomeScreen> {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: const Text("Transaction Actions"),
-          content: const Text("What would you like to do?"),
+          title: Text(S.of(context).transactionActions),
+          content: Text(S.of(context).whatWouldYouLikeToDo),
           actions: [
             TextButton(
               onPressed: () {
                 Navigator.pop(context);
                 _editTransaction(transaction); // Edit Transaction
               },
-              child: const Text("Edit"),
+              child: Text(S.of(context).edit),
             ),
             TextButton(
               onPressed: () async {
@@ -449,7 +449,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   transaction['id'],
                 ); // Delete Transaction
               },
-              child: const Text("Delete", style: TextStyle(color: Colors.red)),
+              child: Text(S.of(context).delete, style: TextStyle(color: Colors.red)),
             ),
           ],
         );
@@ -479,19 +479,19 @@ class _HomeScreenState extends State<HomeScreen> {
       context: context,
       builder:
           (context) => AlertDialog(
-            title: const Text("Delete Transaction"),
-            content: const Text(
-              "Are you sure you want to delete this transaction?",
+            title: Text(S.of(context).deleteTransaction),
+            content: Text(
+              S.of(context).areYouSureYouWantToDeleteThisTransaction,
             ),
             actions: [
               TextButton(
                 onPressed: () => Navigator.pop(context, false),
-                child: const Text("Cancel"),
+                child: Text(S.of(context).cancel),
               ),
               TextButton(
                 onPressed: () => Navigator.pop(context, true),
-                child: const Text(
-                  "Delete",
+                child: Text(
+                  S.of(context).delete,
                   style: TextStyle(color: Colors.red),
                 ),
               ),
@@ -530,7 +530,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 Icon(Icons.account_circle, size: 50, color: Colors.white),
                 SizedBox(height: 10),
                 Text(
-                  globals.currentUsername ?? 'Guest',
+                  globals.currentUsername ?? S.of(context).guest,
                   style: TextStyle(color: Colors.white, fontSize: 18),
                 ),
                 Text(
@@ -542,14 +542,14 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
           ListTile(
             leading: const Icon(Icons.account_box),
-            title: const Text('Account'),
+            title: Text(S.of(context).account),
             onTap: () {
               Navigator.pop(context);
             },
           ),
           ListTile(
             leading: const Icon(Icons.category),
-            title: const Text('Сategory'),
+            title: Text(S.of(context).ategory),
             onTap: () {
               Navigator.push(
                 context,
@@ -559,7 +559,7 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
           ListTile(
             leading: const Icon(Icons.delete_forever),
-            title: const Text('Delete All'),
+            title: Text(S.of(context).deleteAll),
             onTap: _deleteAllTransactions,
           ),
           ListTile(
