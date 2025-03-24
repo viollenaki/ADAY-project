@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:personal_finance/database/database_helper.dart';
 import 'package:personal_finance/database/globals.dart' as globals;
+import 'package:personal_finance/generated/l10n.dart';
 
 class AddTransactionScreen extends StatefulWidget {
   final Map<String, dynamic>? transaction; // Accepts transaction for editing
@@ -126,7 +127,7 @@ class _AddTransactionScreenState extends State<AddTransactionScreen> {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          widget.transaction == null ? "Add Transaction" : "Edit Transaction",
+          widget.transaction == null ? S.of(context).addTransaction : S.of(context).editTransaction,
           style: TextStyle(
             color: Colors.white,
             fontSize: 22,
@@ -154,7 +155,7 @@ class _AddTransactionScreenState extends State<AddTransactionScreen> {
               TextFormField(
                 controller: _amountController,
                 decoration: InputDecoration(
-                  labelText: "Amount",
+                  labelText: S.of(context).amount,
                   prefixIcon:
                       Icon(Icons.attach_money, color: Colors.blueAccent),
                   border: OutlineInputBorder(
@@ -164,11 +165,11 @@ class _AddTransactionScreenState extends State<AddTransactionScreen> {
                 keyboardType: TextInputType.number,
                 validator: (value) {
                   if (value == null || value.isEmpty) {
-                    return "Enter an amount";
+                    return S.of(context).enterAnAmount;
                   }
                   final amount = double.tryParse(value);
                   if (amount == null || amount <= 0) {
-                    return "Enter a valid amount";
+                    return S.of(context).enterAValidAmount;
                   }
                   return null;
                 },
@@ -179,14 +180,14 @@ class _AddTransactionScreenState extends State<AddTransactionScreen> {
               TextFormField(
                 controller: _descriptionController,
                 decoration: InputDecoration(
-                  labelText: "Description",
+                  labelText: S.of(context).description,
                   prefixIcon: Icon(Icons.description, color: Colors.blueAccent),
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(10.0),
                   ),
                 ),
                 validator: (value) => value == null || value.isEmpty
-                    ? "Enter a description"
+                    ? S.of(context).enterADescription
                     : null,
               ),
               const SizedBox(height: 20),
@@ -195,7 +196,7 @@ class _AddTransactionScreenState extends State<AddTransactionScreen> {
               DropdownButtonFormField<String>(
                 value: _type,
                 decoration: InputDecoration(
-                  labelText: "Type",
+                  labelText: S.of(context).type,
                   prefixIcon:
                       Icon(Icons.type_specimen, color: Colors.blueAccent),
                   border: OutlineInputBorder(
@@ -263,8 +264,8 @@ class _AddTransactionScreenState extends State<AddTransactionScreen> {
                 ),
                 child: Text(
                   widget.transaction == null
-                      ? "Add Transaction"
-                      : "Update Transaction",
+                      ? S.of(context).addTransaction
+                      : S.of(context).updateTransaction,
                   style: TextStyle(fontSize: 18, color: Colors.white),
                 ),
               ),

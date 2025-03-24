@@ -26,9 +26,11 @@ class MessageLookup extends MessageLookupByLibrary {
     "add": MessageLookupByLibrary.simpleMessage("Add"),
     "addCategory": MessageLookupByLibrary.simpleMessage("Add Category"),
     "addNewCategory": MessageLookupByLibrary.simpleMessage("Add New Category"),
+    "addTransaction": MessageLookupByLibrary.simpleMessage("Add Transaction"),
     "alreadyHaveAnAccountLogin": MessageLookupByLibrary.simpleMessage(
       "Already have an account? Login",
     ),
+    "amount": MessageLookupByLibrary.simpleMessage("Amount"),
     "areYouSureYouWantToDeleteAllTransactions":
         MessageLookupByLibrary.simpleMessage(
           "Are you sure you want to delete all transactions?",
@@ -51,6 +53,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "categoryName": MessageLookupByLibrary.simpleMessage("Category Name"),
     "categoryType": MessageLookupByLibrary.simpleMessage("Category Type"),
     "createAccount": MessageLookupByLibrary.simpleMessage("Create Account"),
+    "darkMode": MessageLookupByLibrary.simpleMessage("Dark Mode"),
     "delete": MessageLookupByLibrary.simpleMessage("Delete"),
     "deleteAll": MessageLookupByLibrary.simpleMessage("Delete All"),
     "deleteAllTransactions": MessageLookupByLibrary.simpleMessage(
@@ -60,15 +63,29 @@ class MessageLookup extends MessageLookupByLibrary {
     "deleteTransaction": MessageLookupByLibrary.simpleMessage(
       "Delete Transaction",
     ),
+    "description": MessageLookupByLibrary.simpleMessage("Description"),
+    "disabled": MessageLookupByLibrary.simpleMessage("Disabled"),
     "dontHaveAnAccountRegister": MessageLookupByLibrary.simpleMessage(
       "Don\'t have an account? Register",
     ),
     "edit": MessageLookupByLibrary.simpleMessage("Edit"),
+    "editTransaction": MessageLookupByLibrary.simpleMessage("Edit Transaction"),
     "email": MessageLookupByLibrary.simpleMessage("Email"),
+    "enableFingerprint": MessageLookupByLibrary.simpleMessage(
+      "Enable Fingerprint",
+    ),
+    "enabled": MessageLookupByLibrary.simpleMessage("Enabled"),
     "endSelectedenddatetolocaltostringsplit0":
         MessageLookupByLibrary.simpleMessage(
           "End: \${selectedEndDate!.toLocal().toString().split(\' \')[0]}",
         ),
+    "enterADescription": MessageLookupByLibrary.simpleMessage(
+      "Enter a description",
+    ),
+    "enterAValidAmount": MessageLookupByLibrary.simpleMessage(
+      "Enter a valid amount",
+    ),
+    "enterAnAmount": MessageLookupByLibrary.simpleMessage("Enter an amount"),
     "expense": MessageLookupByLibrary.simpleMessage("Expense"),
     "expenseCategories": MessageLookupByLibrary.simpleMessage(
       "Expense Categories",
@@ -78,8 +95,13 @@ class MessageLookup extends MessageLookupByLibrary {
     "filterByCategory": MessageLookupByLibrary.simpleMessage(
       "Filter by Category",
     ),
+    "filterTransactions": MessageLookupByLibrary.simpleMessage(
+      "Filter Transactions",
+    ),
     "filters": MessageLookupByLibrary.simpleMessage("Filters"),
     "guest": MessageLookupByLibrary.simpleMessage("Guest"),
+    "history": MessageLookupByLibrary.simpleMessage("History"),
+    "home": MessageLookupByLibrary.simpleMessage("Home"),
     "income": MessageLookupByLibrary.simpleMessage("Income"),
     "incomeCategories": MessageLookupByLibrary.simpleMessage(
       "Income Categories",
@@ -98,6 +120,9 @@ class MessageLookup extends MessageLookupByLibrary {
         MessageLookupByLibrary.simpleMessage(
           "No data available for the selected filters",
         ),
+    "noTransactionsFound": MessageLookupByLibrary.simpleMessage(
+      "No transactions found",
+    ),
     "noTransactionsYet": MessageLookupByLibrary.simpleMessage(
       "No transactions yet.",
     ),
@@ -119,11 +144,20 @@ class MessageLookup extends MessageLookupByLibrary {
       "Recent Transactions",
     ),
     "register": MessageLookupByLibrary.simpleMessage("Register"),
+    "registeringUser": MessageLookupByLibrary.simpleMessage(
+      "Registering user...",
+    ),
+    "reports": MessageLookupByLibrary.simpleMessage("Reports"),
     "reportsCharts": MessageLookupByLibrary.simpleMessage("Reports & Charts"),
+    "searchTransactions": MessageLookupByLibrary.simpleMessage(
+      "Search Transactions",
+    ),
+    "selectCurrency": MessageLookupByLibrary.simpleMessage("Select Currency"),
     "selectEndDate": MessageLookupByLibrary.simpleMessage("Select End Date"),
     "selectStartDate": MessageLookupByLibrary.simpleMessage(
       "Select Start Date",
     ),
+    "settings": MessageLookupByLibrary.simpleMessage("Settings"),
     "startSelectedstartdatetolocaltostringsplit0":
         MessageLookupByLibrary.simpleMessage(
           "Start: \${selectedStartDate!.toLocal().toString().split(\' \')[0]}",
@@ -131,7 +165,14 @@ class MessageLookup extends MessageLookupByLibrary {
     "transactionActions": MessageLookupByLibrary.simpleMessage(
       "Transaction Actions",
     ),
+    "transactionHistory": MessageLookupByLibrary.simpleMessage(
+      "Transaction History",
+    ),
+    "type": MessageLookupByLibrary.simpleMessage("Type"),
     "tyypeee": MessageLookupByLibrary.simpleMessage("Tyypeee"),
+    "updateTransaction": MessageLookupByLibrary.simpleMessage(
+      "Update Transaction",
+    ),
     "userAlreadyExistsOrRegistrationFailed":
         MessageLookupByLibrary.simpleMessage(
           "User already exists or registration failed.",

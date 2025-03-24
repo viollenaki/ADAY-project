@@ -554,6 +554,186 @@ class S {
       args: [],
     );
   }
+
+  /// `Amount`
+  String get amount {
+    return Intl.message('Amount', name: 'amount', desc: '', args: []);
+  }
+
+  /// `Add Transaction`
+  String get addTransaction {
+    return Intl.message(
+      'Add Transaction',
+      name: 'addTransaction',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Edit Transaction`
+  String get editTransaction {
+    return Intl.message(
+      'Edit Transaction',
+      name: 'editTransaction',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Enter an amount`
+  String get enterAnAmount {
+    return Intl.message(
+      'Enter an amount',
+      name: 'enterAnAmount',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Enter a valid amount`
+  String get enterAValidAmount {
+    return Intl.message(
+      'Enter a valid amount',
+      name: 'enterAValidAmount',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Description`
+  String get description {
+    return Intl.message('Description', name: 'description', desc: '', args: []);
+  }
+
+  /// `Enter a description`
+  String get enterADescription {
+    return Intl.message(
+      'Enter a description',
+      name: 'enterADescription',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Type`
+  String get type {
+    return Intl.message('Type', name: 'type', desc: '', args: []);
+  }
+
+  /// `Update Transaction`
+  String get updateTransaction {
+    return Intl.message(
+      'Update Transaction',
+      name: 'updateTransaction',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Registering user...`
+  String get registeringUser {
+    return Intl.message(
+      'Registering user...',
+      name: 'registeringUser',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Dark Mode`
+  String get darkMode {
+    return Intl.message('Dark Mode', name: 'darkMode', desc: '', args: []);
+  }
+
+  /// `Enabled`
+  String get enabled {
+    return Intl.message('Enabled', name: 'enabled', desc: '', args: []);
+  }
+
+  /// `Select Currency`
+  String get selectCurrency {
+    return Intl.message(
+      'Select Currency',
+      name: 'selectCurrency',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Enable Fingerprint`
+  String get enableFingerprint {
+    return Intl.message(
+      'Enable Fingerprint',
+      name: 'enableFingerprint',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Disabled`
+  String get disabled {
+    return Intl.message('Disabled', name: 'disabled', desc: '', args: []);
+  }
+
+  /// `Transaction History`
+  String get transactionHistory {
+    return Intl.message(
+      'Transaction History',
+      name: 'transactionHistory',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `No transactions found`
+  String get noTransactionsFound {
+    return Intl.message(
+      'No transactions found',
+      name: 'noTransactionsFound',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Search Transactions`
+  String get searchTransactions {
+    return Intl.message(
+      'Search Transactions',
+      name: 'searchTransactions',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Filter Transactions`
+  String get filterTransactions {
+    return Intl.message(
+      'Filter Transactions',
+      name: 'filterTransactions',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Home`
+  String get home {
+    return Intl.message('Home', name: 'home', desc: '', args: []);
+  }
+
+  /// `History`
+  String get history {
+    return Intl.message('History', name: 'history', desc: '', args: []);
+  }
+
+  /// `Reports`
+  String get reports {
+    return Intl.message('Reports', name: 'reports', desc: '', args: []);
+  }
+
+  /// `Settings`
+  String get settings {
+    return Intl.message('Settings', name: 'settings', desc: '', args: []);
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

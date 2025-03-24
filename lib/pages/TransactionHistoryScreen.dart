@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:personal_finance/database/database_helper.dart';
 import 'package:personal_finance/database/globals.dart' as globals;
+import 'package:personal_finance/generated/l10n.dart';
 import 'AddTransactionScreen.dart';
 
 class TransactionHistoryScreen extends StatefulWidget {
@@ -35,17 +36,17 @@ class _TransactionHistoryScreenState extends State<TransactionHistoryScreen> {
     bool confirmDelete = await showDialog(
       context: context,
       builder: (context) => AlertDialog(
-        title: const Text("Delete Transaction"),
+        title: Text(S.of(context).deleteTransaction),
         content:
-            const Text("Are you sure you want to delete this transaction?"),
+            Text(S.of(context).areYouSureYouWantToDeleteThisTransaction),
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(context, false),
-            child: const Text("Cancel"),
+            child: Text(S.of(context).cancel),
           ),
           TextButton(
             onPressed: () => Navigator.pop(context, true),
-            child: const Text("Delete", style: TextStyle(color: Colors.red)),
+            child: Text(S.of(context).delete, style: TextStyle(color: Colors.red)),
           ),
         ],
       ),
@@ -81,8 +82,8 @@ class _TransactionHistoryScreenState extends State<TransactionHistoryScreen> {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text(
-          "Transaction History",
+        title: Text(
+          S.of(context).transactionHistory,
           style: TextStyle(
             color: Colors.white,
             fontSize: 22,
@@ -113,7 +114,7 @@ class _TransactionHistoryScreenState extends State<TransactionHistoryScreen> {
             child: RefreshIndicator(
               onRefresh: _loadTransactions,
               child: filteredTransactions.isEmpty
-                  ? const Center(child: Text("No transactions found"))
+                  ? Center(child: Text(S.of(context).noTransactionsFound))
                   : ListView.builder(
                       itemCount: filteredTransactions.length,
                       itemBuilder: (context, index) {
@@ -133,7 +134,7 @@ class _TransactionHistoryScreenState extends State<TransactionHistoryScreen> {
       padding: const EdgeInsets.all(8.0),
       child: TextField(
         decoration: InputDecoration(
-          labelText: 'Search Transactions',
+          labelText: S.of(context).searchTransactions,
           prefixIcon: const Icon(Icons.search),
           suffixIcon: _searchQuery.isNotEmpty
               ? IconButton(
@@ -221,22 +222,22 @@ class _TransactionHistoryScreenState extends State<TransactionHistoryScreen> {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: const Text("Transaction Actions"),
-          content: const Text("What would you like to do?"),
+          title: Text(S.of(context).transactionActions),
+          content:  Text(S.of(context).whatWouldYouLikeToDo),
           actions: [
             TextButton(
               onPressed: () {
                 Navigator.pop(context);
                 _editTransaction(transaction);
               },
-              child: const Text("Edit"),
+              child: Text(S.of(context).edit),
             ),
             TextButton(
               onPressed: () async {
                 Navigator.pop(context);
                 await _deleteTransaction(transaction['id']);
               },
-              child: const Text("Delete", style: TextStyle(color: Colors.red)),
+              child: Text(S.of(context).delete, style: TextStyle(color: Colors.red)),
             ),
           ],
         );
@@ -267,8 +268,8 @@ class _TransactionHistoryScreenState extends State<TransactionHistoryScreen> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Text(
-                "Filter Transactions",
+              Text(
+                S.of(context).filterTransactions,
                 style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
               ),
               const SizedBox(height: 12),

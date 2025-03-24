@@ -54,7 +54,7 @@ class _MyAppState extends State<MyApp> {
         GlobalCupertinoLocalizations.delegate,
       ],
       supportedLocales: S.delegate.supportedLocales,
-      title: 'Personal Finance',
+      title: S.of(context).personalFinance,
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
@@ -172,7 +172,7 @@ class _MainNavigationScreenState extends State<MainNavigationScreen> {
                     color: Colors.blueAccent,
                   ),
                 ),
-                label: 'Home',
+                label: S.of(context).home,
               ),
               NavigationDestination(
                 icon: Container(
@@ -200,7 +200,7 @@ class _MainNavigationScreenState extends State<MainNavigationScreen> {
                     color: Colors.purpleAccent,
                   ),
                 ),
-                label: 'History',
+                label: S.of(context).history,
               ),
               NavigationDestination(
                 icon: Container(
@@ -228,7 +228,7 @@ class _MainNavigationScreenState extends State<MainNavigationScreen> {
                     color: Colors.blueAccent,
                   ),
                 ),
-                label: 'Reports',
+                label: S.of(context).reports,
               ),
               NavigationDestination(
                 icon: Container(
@@ -256,7 +256,7 @@ class _MainNavigationScreenState extends State<MainNavigationScreen> {
                     color: Colors.purpleAccent,
                   ),
                 ),
-                label: 'Settings',
+                label: S.of(context).settings,
               ),
             ],
           ),
