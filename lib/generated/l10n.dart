@@ -329,6 +329,231 @@ class S {
       args: [],
     );
   }
+
+  /// `Delete Category`
+  String get deleteCategory {
+    return Intl.message(
+      'Delete Category',
+      name: 'deleteCategory',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Category deleted`
+  String get categoryDeleted {
+    return Intl.message(
+      'Category deleted',
+      name: 'categoryDeleted',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Add New Category`
+  String get addNewCategory {
+    return Intl.message(
+      'Add New Category',
+      name: 'addNewCategory',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Category Name`
+  String get categoryName {
+    return Intl.message(
+      'Category Name',
+      name: 'categoryName',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Expense`
+  String get expense {
+    return Intl.message('Expense', name: 'expense', desc: '', args: []);
+  }
+
+  /// `Category Type`
+  String get categoryType {
+    return Intl.message(
+      'Category Type',
+      name: 'categoryType',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Category added successfully`
+  String get categoryAddedSuccessfully {
+    return Intl.message(
+      'Category added successfully',
+      name: 'categoryAddedSuccessfully',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Add`
+  String get add {
+    return Intl.message('Add', name: 'add', desc: '', args: []);
+  }
+
+  /// `Categories`
+  String get categories {
+    return Intl.message('Categories', name: 'categories', desc: '', args: []);
+  }
+
+  /// `Add Category`
+  String get addCategory {
+    return Intl.message(
+      'Add Category',
+      name: 'addCategory',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Income Categories`
+  String get incomeCategories {
+    return Intl.message(
+      'Income Categories',
+      name: 'incomeCategories',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Expense Categories`
+  String get expenseCategories {
+    return Intl.message(
+      'Expense Categories',
+      name: 'expenseCategories',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Reports & Charts`
+  String get reportsCharts {
+    return Intl.message(
+      'Reports & Charts',
+      name: 'reportsCharts',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `No data available`
+  String get noDataAvailable {
+    return Intl.message(
+      'No data available',
+      name: 'noDataAvailable',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Income Overview`
+  String get incomeOverview {
+    return Intl.message(
+      'Income Overview',
+      name: 'incomeOverview',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Expense Overview`
+  String get expenseOverview {
+    return Intl.message(
+      'Expense Overview',
+      name: 'expenseOverview',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Monthly Spending Trends`
+  String get monthlySpendingTrends {
+    return Intl.message(
+      'Monthly Spending Trends',
+      name: 'monthlySpendingTrends',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Filters`
+  String get filters {
+    return Intl.message('Filters', name: 'filters', desc: '', args: []);
+  }
+
+  /// `Tyypeee`
+  String get tyypeee {
+    return Intl.message('Tyypeee', name: 'tyypeee', desc: '', args: []);
+  }
+
+  /// `Select Start Date`
+  String get selectStartDate {
+    return Intl.message(
+      'Select Start Date',
+      name: 'selectStartDate',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Select End Date`
+  String get selectEndDate {
+    return Intl.message(
+      'Select End Date',
+      name: 'selectEndDate',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Filter by Category`
+  String get filterByCategory {
+    return Intl.message(
+      'Filter by Category',
+      name: 'filterByCategory',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `No data available for the selected filters`
+  String get noDataAvailableForTheSelectedFilters {
+    return Intl.message(
+      'No data available for the selected filters',
+      name: 'noDataAvailableForTheSelectedFilters',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Start: ${selectedStartDate!.toLocal().toString().split(' ')[0]}`
+  String get startSelectedstartdatetolocaltostringsplit0 {
+    return Intl.message(
+      'Start: \${selectedStartDate!.toLocal().toString().split(\' \')[0]}',
+      name: 'startSelectedstartdatetolocaltostringsplit0',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `End: ${selectedEndDate!.toLocal().toString().split(' ')[0]}`
+  String get endSelectedenddatetolocaltostringsplit0 {
+    return Intl.message(
+      'End: \${selectedEndDate!.toLocal().toString().split(\' \')[0]}',
+      name: 'endSelectedenddatetolocaltostringsplit0',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

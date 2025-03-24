@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:personal_finance/database/database_helper.dart';
+import 'package:personal_finance/generated/l10n.dart';
 
 class CategoryScreen extends StatefulWidget {
   const CategoryScreen({super.key});
@@ -47,22 +48,22 @@ class _CategoryScreenState extends State<CategoryScreen> {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: const Text("Delete Category"),
+          title: Text(S.of(context).deleteCategory),
           content: Text("Are you sure you want to delete \"$name\"?"),
           actions: [
             TextButton(
               onPressed: () => Navigator.of(context).pop(),
-              child: const Text("Cancel"),
+              child: Text(S.of(context).cancel),
             ),
             TextButton(
               onPressed: () async {
                 Navigator.of(context).pop();
                 await _deleteCategory(name, type);
                 ScaffoldMessenger.of(context).showSnackBar(
-                  const SnackBar(content: Text('Category deleted')),
+                   SnackBar(content: Text(S.of(context).categoryDeleted)),
                 );
               },
-              child: const Text("Delete", style: TextStyle(color: Colors.red)),
+              child: Text(S.of(context).delete, style: TextStyle(color: Colors.red)),
             ),
           ],
         );
@@ -75,31 +76,31 @@ class _CategoryScreenState extends State<CategoryScreen> {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: const Text("Add New Category"),
+          title: Text(S.of(context).addNewCategory),
           content: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
               TextField(
                 controller: _categoryNameController,
-                decoration: const InputDecoration(
-                  labelText: 'Category Name',
+                decoration: InputDecoration(
+                  labelText: S.of(context).categoryName,
                   border: OutlineInputBorder(),
                 ),
               ),
               const SizedBox(height: 16),
               DropdownButtonFormField<String>(
                 value: _selectedCategoryType,
-                items: const [
-                  DropdownMenuItem(value: 'Income', child: Text('Income')),
-                  DropdownMenuItem(value: 'Expense', child: Text('Expense')),
+                items: [
+                  DropdownMenuItem(value: 'Income', child: Text(S.of(context).income)),
+                  DropdownMenuItem(value: 'Expense', child: Text(S.of(context).expense)),
                 ],
                 onChanged: (value) {
                   setState(() {
                     _selectedCategoryType = value!;
                   });
                 },
-                decoration: const InputDecoration(
-                  labelText: 'Category Type',
+                decoration: InputDecoration(
+                  labelText: S.of(context).categoryType,
                   border: OutlineInputBorder(),
                 ),
               ),
@@ -111,7 +112,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
                 _categoryNameController.clear();
                 Navigator.of(context).pop();
               },
-              child: const Text("Cancel"),
+              child: Text(S.of(context).cancel),
             ),
             ElevatedButton(
               onPressed: () async {
@@ -120,14 +121,14 @@ class _CategoryScreenState extends State<CategoryScreen> {
                 if (name.isNotEmpty) {
                   await dbHelper.insertCategory(name, type);
                   ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(content: Text('Category added successfully')),
+                     SnackBar(content: Text(S.of(context).categoryAddedSuccessfully)),
                   );
                   await loadCategories(); // Refresh
                 }
                 _categoryNameController.clear();
                 Navigator.of(context).pop();
               },
-              child: const Text("Add"),
+              child: Text(S.of(context).add),
             ),
           ],
         );
@@ -139,7 +140,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Categories'),
+        title: Text(S.of(context).categories),
         flexibleSpace: Container(
           decoration: const BoxDecoration(
             gradient: LinearGradient(
@@ -158,7 +159,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
           ElevatedButton.icon(
             onPressed: () => _showAddCategoryDialog(context),
             icon: const Icon(Icons.add),
-            label: const Text("Add Category"),
+            label: Text(S.of(context).addCategory),
             style: ElevatedButton.styleFrom(
               backgroundColor: Colors.deepPurple,
               foregroundColor: Colors.white,
@@ -169,8 +170,8 @@ class _CategoryScreenState extends State<CategoryScreen> {
             ),
           ),
           const SizedBox(height: 20),
-          const Text(
-            'Income Categories',
+          Text(
+            S.of(context).incomeCategories,
             style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
           ),
           const SizedBox(height: 8),
@@ -183,8 +184,8 @@ class _CategoryScreenState extends State<CategoryScreen> {
             ),
           )),
           const SizedBox(height: 20),
-          const Text(
-            'Expense Categories',
+          Text(
+            S.of(context).expenseCategories,
             style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
           ),
           const SizedBox(height: 8),
