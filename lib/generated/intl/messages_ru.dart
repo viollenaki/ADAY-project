@@ -23,6 +23,9 @@ class MessageLookup extends MessageLookupByLibrary {
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
     "account": MessageLookupByLibrary.simpleMessage("Акаунт"),
+    "alreadyHaveAnAccountLogin": MessageLookupByLibrary.simpleMessage(
+      "У вас уже есть аккаунт? Войти",
+    ),
     "areYouSureYouWantToDeleteAllTransactions":
         MessageLookupByLibrary.simpleMessage(
           "Вы уверены, что хотите удалить все транзакции?",
@@ -46,22 +49,46 @@ class MessageLookup extends MessageLookupByLibrary {
     "deleteTransaction": MessageLookupByLibrary.simpleMessage(
       "Удалить транзакцию",
     ),
+    "dontHaveAnAccountRegister": MessageLookupByLibrary.simpleMessage(
+      "Нет аккаунта? Зарегистрируйтесь",
+    ),
     "edit": MessageLookupByLibrary.simpleMessage("Редактировать"),
+    "email": MessageLookupByLibrary.simpleMessage("Электронная почта"),
     "expenses": MessageLookupByLibrary.simpleMessage("Затраты"),
     "guest": MessageLookupByLibrary.simpleMessage("Гость"),
     "income": MessageLookupByLibrary.simpleMessage("Доход"),
     "language": MessageLookupByLibrary.simpleMessage("Язык"),
+    "login": MessageLookupByLibrary.simpleMessage("Авторизоваться"),
     "logout": MessageLookupByLibrary.simpleMessage("Выйти"),
     "noTransactionsYet": MessageLookupByLibrary.simpleMessage(
       "Транзакций пока нет.",
     ),
+    "password": MessageLookupByLibrary.simpleMessage("Пароль"),
     "personalFinance": MessageLookupByLibrary.simpleMessage("Личные финансы"),
+    "pleaseEnterAPassword": MessageLookupByLibrary.simpleMessage(
+      "Пожалуйста, введите пароль",
+    ),
+    "pleaseEnterAUsername": MessageLookupByLibrary.simpleMessage(
+      "Пожалуйста, введите имя пользователя",
+    ),
+    "pleaseEnterAValidEmail": MessageLookupByLibrary.simpleMessage(
+      "Пожалуйста, введите действительный адрес электронной почты",
+    ),
+    "pleaseEnterAnEmail": MessageLookupByLibrary.simpleMessage(
+      "Пожалуйста, введите адрес электронной почты",
+    ),
     "recentTransactions": MessageLookupByLibrary.simpleMessage(
       "Недавние транзакции",
     ),
+    "register": MessageLookupByLibrary.simpleMessage("Зарегистрироваться"),
     "transactionActions": MessageLookupByLibrary.simpleMessage(
       "Действия транзакции",
     ),
+    "userAlreadyExistsOrRegistrationFailed":
+        MessageLookupByLibrary.simpleMessage(
+          "Пользователь уже существует или регистрация не удалась.",
+        ),
+    "username": MessageLookupByLibrary.simpleMessage("Имя пользователя"),
     "welcomeBack": MessageLookupByLibrary.simpleMessage("Добро пожаловать!"),
     "whatWouldYouLikeToDo": MessageLookupByLibrary.simpleMessage(
       "Что бы вы хотели сделать?",

@@ -1,6 +1,4 @@
 {
-  "welcomeBack": "Добро пожаловать!",
-  "createAccount": "Зарегистрироваться",
   "language": "Язык",
   "logout": "Выйти",
   "personalFinance": "Личные финансы",
@@ -22,5 +20,19 @@
   "account": "Акаунт",
   "ategory": "Категория",
   "deleteAll": "Удалить все",
-  "noTransactionsYet": "Транзакций пока нет."
+  "noTransactionsYet": "Транзакций пока нет.",
+  "welcomeBack": "Добро пожаловать!",
+  "createAccount": "Зарегистрироваться",
+  "username": "Имя пользователя",
+  "pleaseEnterAUsername": "Пожалуйста, введите имя пользователя",
+  "password": "Пароль",
+  "pleaseEnterAPassword": "Пожалуйста, введите пароль",
+  "email": "Электронная почта",
+  "pleaseEnterAnEmail": "Пожалуйста, введите адрес электронной почты",
+  "pleaseEnterAValidEmail": "Пожалуйста, введите действительный адрес электронной почты",
+  "userAlreadyExistsOrRegistrationFailed": "Пользователь уже существует или регистрация не удалась.",
+  "login": "Авторизоваться",
+  "register": "Зарегистрироваться",
+  "dontHaveAnAccountRegister": "Нет аккаунта? Зарегистрируйтесь",
+  "alreadyHaveAnAccountLogin": "У вас уже есть аккаунт? Войти"
 }

@@ -1,6 +1,4 @@
 {
-  "welcomeBack": "Кайра кош келиңиз!",
-  "createAccount": "Эсеп түзүү",
   "language": "Тил",
   "logout": "Чыгуу",
   "personalFinance": "Жеке каржы",
@@ -22,5 +20,19 @@
   "account": "Акаунт",
   "ategory": "Категория",
   "deleteAll": "Баарын жок кылуу",
-  "noTransactionsYet": "Азырынча транзакциялар жок."
+  "noTransactionsYet": "Азырынча транзакциялар жок.",
+  "welcomeBack": "Кайра кош келиңиз!",
+  "createAccount": "Эсеп түзүү",
+  "username": "Колдонуучунун аты",
+  "pleaseEnterAUsername": "Сураныч, колдонуучу атын киргизиңиз",
+  "password": "Купуя сөз",
+  "pleaseEnterAPassword": "Сырсөздү киргизиңиз",
+  "email": "Электронная почта",
+  "pleaseEnterAnEmail": "Сураныч, электрондук почтаны киргизиңиз",
+  "pleaseEnterAValidEmail": "Жарактуу электрондук почтаны киргизиңиз",
+  "userAlreadyExistsOrRegistrationFailed": "Колдонуучу мурунтан эле бар же каттоодон өткөн жок.",
+  "login": "Кирүү",
+  "register": "Каттоо",
+  "dontHaveAnAccountRegister": "Каттоо эсебиңиз жокпу? Каттоо",
+  "alreadyHaveAnAccountLogin": "Каттоо эсебиңиз барбы? Кирүү"
 }
