@@ -48,6 +48,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "balance": MessageLookupByLibrary.simpleMessage("Баланс"),
     "cancel": MessageLookupByLibrary.simpleMessage("Жокко чыгаруу"),
     "categories": MessageLookupByLibrary.simpleMessage("Категориялар"),
+    "category": MessageLookupByLibrary.simpleMessage("Категория"),
     "categoryAddedSuccessfully": MessageLookupByLibrary.simpleMessage(
       "Категория ийгиликтүү кошулду",
     ),
@@ -60,6 +61,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "categoryType": MessageLookupByLibrary.simpleMessage("Категориянын түрү"),
     "createAccount": MessageLookupByLibrary.simpleMessage("Эсеп түзүү"),
     "darkMode": MessageLookupByLibrary.simpleMessage("Караңгы Режим"),
+    "date": MessageLookupByLibrary.simpleMessage("Дата"),
     "delete": MessageLookupByLibrary.simpleMessage("Жок кылуу"),
     "deleteAll": MessageLookupByLibrary.simpleMessage("Баарын жок кылуу"),
     "deleteAllTransactions": MessageLookupByLibrary.simpleMessage(
@@ -139,6 +141,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "noTransactionsYet": MessageLookupByLibrary.simpleMessage(
       "Азырынча транзакциялар жок.",
     ),
+    "other": MessageLookupByLibrary.simpleMessage("Башка"),
     "password": MessageLookupByLibrary.simpleMessage("Купуя сөз"),
     "personalFinance": MessageLookupByLibrary.simpleMessage("Жеке каржы"),
     "pleaseEnterAPassword": MessageLookupByLibrary.simpleMessage(
@@ -186,7 +189,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "Транзакциянын Тарыхы",
     ),
     "type": MessageLookupByLibrary.simpleMessage("Түрү"),
-    "tyypeee": MessageLookupByLibrary.simpleMessage("Tyypeee"),
+    "tyypeee": MessageLookupByLibrary.simpleMessage("Түрү"),
     "updateTransaction": MessageLookupByLibrary.simpleMessage(
       "Жаңыртуу Бүтүмү",
     ),

@@ -46,6 +46,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "balance": MessageLookupByLibrary.simpleMessage("Balance"),
     "cancel": MessageLookupByLibrary.simpleMessage("Cancel"),
     "categories": MessageLookupByLibrary.simpleMessage("Categories"),
+    "category": MessageLookupByLibrary.simpleMessage("Category"),
     "categoryAddedSuccessfully": MessageLookupByLibrary.simpleMessage(
       "Category added successfully",
     ),
@@ -54,6 +55,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "categoryType": MessageLookupByLibrary.simpleMessage("Category Type"),
     "createAccount": MessageLookupByLibrary.simpleMessage("Create Account"),
     "darkMode": MessageLookupByLibrary.simpleMessage("Dark Mode"),
+    "date": MessageLookupByLibrary.simpleMessage("Date"),
     "delete": MessageLookupByLibrary.simpleMessage("Delete"),
     "deleteAll": MessageLookupByLibrary.simpleMessage("Delete All"),
     "deleteAllTransactions": MessageLookupByLibrary.simpleMessage(
@@ -126,6 +128,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "noTransactionsYet": MessageLookupByLibrary.simpleMessage(
       "No transactions yet.",
     ),
+    "other": MessageLookupByLibrary.simpleMessage("Other"),
     "password": MessageLookupByLibrary.simpleMessage("Password"),
     "personalFinance": MessageLookupByLibrary.simpleMessage("Personal Finance"),
     "pleaseEnterAPassword": MessageLookupByLibrary.simpleMessage(
@@ -169,7 +172,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "Transaction History",
     ),
     "type": MessageLookupByLibrary.simpleMessage("Type"),
-    "tyypeee": MessageLookupByLibrary.simpleMessage("Tyypeee"),
+    "tyypeee": MessageLookupByLibrary.simpleMessage("Type"),
     "updateTransaction": MessageLookupByLibrary.simpleMessage(
       "Update Transaction",
     ),

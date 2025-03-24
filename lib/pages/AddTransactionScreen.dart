@@ -89,12 +89,12 @@ class _AddTransactionScreenState extends State<AddTransactionScreen> {
   }
   Future<void> _loadCategories() async {
     final categories = await _dbHelper.getCategoriesByType(_type);
-    categories.remove("Other");
-    categories.add("Other");
+    categories.remove(S.of(context).other);
+    categories.add(S.of(context).other);
     setState(() {
       _categories = categories;
       if (!_categories.contains(_category)) {
-        _category = _categories.isNotEmpty ? _categories.first : 'Other';
+        _category = _categories.isNotEmpty ? _categories.first : S.of(context).other;
       }
     });
   }
@@ -217,7 +217,7 @@ class _AddTransactionScreenState extends State<AddTransactionScreen> {
               DropdownButtonFormField<String>(
                 value: _category,
                 decoration: InputDecoration(
-                  labelText: "Category",
+                  labelText: S.of(context).category,
                   prefixIcon: Icon(Icons.category, color: Colors.blueAccent),
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(10.0),
@@ -236,7 +236,7 @@ class _AddTransactionScreenState extends State<AddTransactionScreen> {
               // Date Picker
               ListTile(
                 title: Text(
-                  "Date",
+                  S.of(context).date,
                   style: TextStyle(color: Colors.blueAccent),
                 ),
                 subtitle: Text(
