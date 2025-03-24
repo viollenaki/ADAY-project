@@ -54,7 +54,7 @@ class _MyAppState extends State<MyApp> {
         GlobalCupertinoLocalizations.delegate,
       ],
       supportedLocales: S.delegate.supportedLocales,
-      title: S.of(context).personalFinance,
+      title: 'Personal Finance',
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
@@ -158,7 +158,7 @@ class _MainNavigationScreenState extends State<MainNavigationScreen> {
                   child: Icon(
                     Icons.home_outlined,
                     color:
-                        _selectedIndex == 0 ? Colors.blueAccent : Colors.grey,
+                    _selectedIndex == 0 ? Colors.blueAccent : Colors.grey,
                   ),
                 ),
                 selectedIcon: Container(
@@ -186,7 +186,7 @@ class _MainNavigationScreenState extends State<MainNavigationScreen> {
                   child: Icon(
                     Icons.history_outlined,
                     color:
-                        _selectedIndex == 1 ? Colors.purpleAccent : Colors.grey,
+                    _selectedIndex == 1 ? Colors.purpleAccent : Colors.grey,
                   ),
                 ),
                 selectedIcon: Container(
@@ -214,7 +214,7 @@ class _MainNavigationScreenState extends State<MainNavigationScreen> {
                   child: Icon(
                     Icons.bar_chart_outlined,
                     color:
-                        _selectedIndex == 2 ? Colors.blueAccent : Colors.grey,
+                    _selectedIndex == 2 ? Colors.blueAccent : Colors.grey,
                   ),
                 ),
                 selectedIcon: Container(
@@ -242,7 +242,7 @@ class _MainNavigationScreenState extends State<MainNavigationScreen> {
                   child: Icon(
                     Icons.settings_outlined,
                     color:
-                        _selectedIndex == 3 ? Colors.purpleAccent : Colors.grey,
+                    _selectedIndex == 3 ? Colors.purpleAccent : Colors.grey,
                   ),
                 ),
                 selectedIcon: Container(
