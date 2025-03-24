@@ -1,6 +1,9 @@
+import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:personal_finance/database/database_helper.dart';
+import 'package:personal_finance/database/globals.dart' as globals;
+import 'package:personal_finance/generated/l10n.dart';
 
 class ReportsScreen extends StatefulWidget {
   const ReportsScreen({super.key});
@@ -18,11 +21,26 @@ class _ReportsScreenState extends State<ReportsScreen> {
   DateTime? selectedEndDate;
   String selectedType = 'expense'; // Default to 'expense'
   String? selectedCategory; // Track the selected category for detailed view
+  final Map<String, Color> _categoryColorCache = {};
 
   @override
   void initState() {
     super.initState();
     _reportsFuture = _loadData();
+  }
+  double convertCurrency(double amount) {
+    return amount * (globals.currency[globals.currentCurrency] ?? 1.0);
+  }
+  double _calculateYAxisInterval(Iterable<double> values) {
+    if (values.isEmpty) return 100;
+    final max = values.reduce((a, b) => a > b ? a : b);
+    final rawInterval = max / 5;
+    if (rawInterval <= 10) return 10;
+    if (rawInterval <= 50) return 20;
+    if (rawInterval <= 100) return 50;
+    if (rawInterval <= 500) return 100;
+    if (rawInterval <= 1000) return 200;
+    return (rawInterval / 100).ceil() * 100;
   }
 
   Future<Map<String, dynamic>> _loadData() async {
@@ -63,7 +81,8 @@ class _ReportsScreenState extends State<ReportsScreen> {
       // Filtered data for charts
       for (var transaction in transactions) {
         String category = transaction['category'] as String;
-        double amount = (transaction['amount'] as num).toDouble();
+        double amount = convertCurrency((transaction['amount'] as num).toDouble());
+        //double amount = (transaction['amount'] as num).toDouble();
         String dateString = transaction['date'] as String;
 
         if (dateString.length >= 7) {
@@ -89,8 +108,8 @@ class _ReportsScreenState extends State<ReportsScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text(
-          "Reports & Charts",
+        title: Text(
+          S.of(context).reportsCharts,
           style: TextStyle(
             color: Colors.white,
             fontSize: 22,
@@ -124,9 +143,9 @@ class _ReportsScreenState extends State<ReportsScreen> {
               ),
             );
           } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
-            return const Center(
+            return Center(
               child: Text(
-                "No data available",
+                S.of(context).noDataAvailable,
                 style: TextStyle(color: Colors.grey, fontSize: 16),
               ),
             );
@@ -152,8 +171,8 @@ class _ReportsScreenState extends State<ReportsScreen> {
                 const SizedBox(height: 20),
                 _buildChartCard(
                   title: selectedType == 'income'
-                      ? "Income Overview"
-                      : "Expense Overview",
+                      ? S.of(context).incomeOverview
+                      : S.of(context).expenseOverview,
                   child: categorySpending.isEmpty
                       ? _buildNoDataWidget()
                       : Column(
@@ -226,7 +245,7 @@ class _ReportsScreenState extends State<ReportsScreen> {
                 ),
                 const SizedBox(height: 20),
                 _buildChartCard(
-                  title: "Monthly Spending Trends",
+                  title: S.of(context).monthlySpendingTrends,
                   child: monthlySpending.isEmpty
                       ? _buildNoDataWidget()
                       : SizedBox(
@@ -271,11 +290,12 @@ class _ReportsScreenState extends State<ReportsScreen> {
                           leftTitles: AxisTitles(
                             sideTitles: SideTitles(
                               showTitles: true,
-                              reservedSize: 30,
-                              interval: 50,
+                              reservedSize: 42,
+                              interval: _calculateYAxisInterval(monthlySpending.values),
                               getTitlesWidget: (value, meta) {
                                 return Text(
-                                  "\$${value.toInt()}",
+                                  //"${globals.currentCurrency} ${convertCurrency(value.toDouble()).toStringAsFixed(0)}",
+                                  "${globals.currentCurrency} ${value.toStringAsFixed(0)}",
                                   style: const TextStyle(
                                     fontSize: 12,
                                     color: Colors.black87,
@@ -366,7 +386,7 @@ class _ReportsScreenState extends State<ReportsScreen> {
                   ),
                 ),
                 Text(
-                  "₱${amount.toStringAsFixed(2)}",
+                  "${globals.currentCurrency} ${amount.toStringAsFixed(2)}",
                   style: const TextStyle(
                     fontSize: 18,
                     fontWeight: FontWeight.bold,
@@ -421,8 +441,8 @@ class _ReportsScreenState extends State<ReportsScreen> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const Text(
-              "Filters",
+            Text(
+              S.of(context).filters,
               style: TextStyle(
                 fontSize: 16,
                 fontWeight: FontWeight.bold,
@@ -446,14 +466,14 @@ class _ReportsScreenState extends State<ReportsScreen> {
     return DropdownButtonFormField<String>(
       value: selectedType,
       decoration: InputDecoration(
-        labelText: "Tyypeee",
+        labelText: S.of(context).tyypeee,
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(8),
         ),
       ),
-      items: const [
-        DropdownMenuItem(value: 'expense', child: Text("Expense")),
-        DropdownMenuItem(value: 'income', child: Text("Income")),
+      items: [
+        DropdownMenuItem(value: 'expense', child: Text(S.of(context).expense)),
+        DropdownMenuItem(value: 'income', child: Text(S.of(context).income)),
       ],
       onChanged: (value) {
         setState(() {
@@ -487,8 +507,8 @@ class _ReportsScreenState extends State<ReportsScreen> {
             },
             child: Text(
               selectedStartDate == null
-                  ? "Select Start Date"
-                  : "Start: ${selectedStartDate!.toLocal().toString().split(' ')[0]}",
+                  ? S.of(context).selectStartDate
+                  : S.of(context).startSelectedstartdatetolocaltostringsplit0,
               style: const TextStyle(color: Colors.black87),
             ),
           ),
@@ -512,8 +532,8 @@ class _ReportsScreenState extends State<ReportsScreen> {
             },
             child: Text(
               selectedEndDate == null
-                  ? "Select End Date"
-                  : "End: ${selectedEndDate!.toLocal().toString().split(' ')[0]}",
+                  ? S.of(context).selectEndDate
+                  : S.of(context).endSelectedenddatetolocaltostringsplit0,
               style: const TextStyle(color: Colors.black87),
             ),
           ),
@@ -527,8 +547,8 @@ class _ReportsScreenState extends State<ReportsScreen> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const Text(
-          "Filter by Category",
+        Text(
+          S.of(context).filterByCategory,
           style: TextStyle(
             fontSize: 16,
             fontWeight: FontWeight.bold,
@@ -596,9 +616,9 @@ class _ReportsScreenState extends State<ReportsScreen> {
 
   // Widget to display when no data is available
   Widget _buildNoDataWidget() {
-    return const Center(
+    return Center(
       child: Text(
-        "No data available for the selected filters",
+        S.of(context).noDataAvailableForTheSelectedFilters,
         style: TextStyle(color: Colors.grey, fontSize: 16),
       ),
     );
@@ -675,20 +695,37 @@ class _ReportsScreenState extends State<ReportsScreen> {
 
   // Get a unique color for each category
   Color _getChartColor(String category) {
-    // Direct mapping using if/else for all categories with smooth color transition
-    if (category == 'Food') {
-      return const Color(0xFFFF9F43); // Deep orange
-    } else if (category == 'Transport') {
-      return const Color(0xFF54A0FF); // Bright blue
-    } else if (category == 'Shopping') {
-      return const Color(0xFFFF6B81); // Soft pink
-    } else if (category == 'Bills') {
-      return const Color(0xFFEE5253); // Coral red
-    } else {
-      // Default color for any other categories
-      return const Color(0xFF9B9B9B); // Medium grey
+    // Кешируем цвета для постоянства между сборками
+    if (_categoryColorCache.containsKey(category)) {
+      return _categoryColorCache[category]!;
     }
+
+    final Random random = Random(category.hashCode); // Делает цвет постоянным по категории
+    final Color randomColor = Color.fromARGB(
+      255, // полностью непрозрачный
+      random.nextInt(256),
+      random.nextInt(256),
+      random.nextInt(256),
+    );
+
+    _categoryColorCache[category] = randomColor;
+    return randomColor;
   }
+  // Color _getChartColor(String category) {
+  //   // Direct mapping using if/else for all categories with smooth color transition
+  //   if (category == 'Food') {
+  //     return const Color(0xFFFF9F43); // Deep orange
+  //   } else if (category == 'Transport') {
+  //     return const Color(0xFF54A0FF); // Bright blue
+  //   } else if (category == 'Shopping') {
+  //     return const Color(0xFFFF6B81); // Soft pink
+  //   } else if (category == 'Bills') {
+  //     return const Color(0xFFEE5253); // Coral red
+  //   } else {
+  //     // Default color for any other categories
+  //     return const Color(0xFF9B9B9B); // Medium grey
+  //   }
+  // }
 
   // Add these helper methods to order categories
 
