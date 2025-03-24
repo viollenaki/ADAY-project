@@ -28,9 +28,13 @@ class MessageLookup extends MessageLookupByLibrary {
     "addNewCategory": MessageLookupByLibrary.simpleMessage(
       "Добавить новую категорию",
     ),
+    "addTransaction": MessageLookupByLibrary.simpleMessage(
+      "Добавить транзакцию",
+    ),
     "alreadyHaveAnAccountLogin": MessageLookupByLibrary.simpleMessage(
       "У вас уже есть аккаунт? Войти",
     ),
+    "amount": MessageLookupByLibrary.simpleMessage("Сумма"),
     "areYouSureYouWantToDeleteAllTransactions":
         MessageLookupByLibrary.simpleMessage(
           "Вы уверены, что хотите удалить все транзакции?",
@@ -55,6 +59,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "categoryName": MessageLookupByLibrary.simpleMessage("Название категории"),
     "categoryType": MessageLookupByLibrary.simpleMessage("Тип категории"),
     "createAccount": MessageLookupByLibrary.simpleMessage("Зарегистрироваться"),
+    "darkMode": MessageLookupByLibrary.simpleMessage("Темный режим"),
     "delete": MessageLookupByLibrary.simpleMessage("Удалить"),
     "deleteAll": MessageLookupByLibrary.simpleMessage("Удалить все"),
     "deleteAllTransactions": MessageLookupByLibrary.simpleMessage(
@@ -64,15 +69,31 @@ class MessageLookup extends MessageLookupByLibrary {
     "deleteTransaction": MessageLookupByLibrary.simpleMessage(
       "Удалить транзакцию",
     ),
+    "description": MessageLookupByLibrary.simpleMessage("Описание"),
+    "disabled": MessageLookupByLibrary.simpleMessage("Нетрудоспособный"),
     "dontHaveAnAccountRegister": MessageLookupByLibrary.simpleMessage(
       "Нет аккаунта? Зарегистрируйтесь",
     ),
     "edit": MessageLookupByLibrary.simpleMessage("Редактировать"),
+    "editTransaction": MessageLookupByLibrary.simpleMessage(
+      "Редактировать транзакцию",
+    ),
     "email": MessageLookupByLibrary.simpleMessage("Электронная почта"),
+    "enableFingerprint": MessageLookupByLibrary.simpleMessage(
+      "Включить отпечаток пальца",
+    ),
+    "enabled": MessageLookupByLibrary.simpleMessage("Включенный"),
     "endSelectedenddatetolocaltostringsplit0":
         MessageLookupByLibrary.simpleMessage(
           "Конец: \${selectedEndDate!.toLocal().toString().split(\' \')[0]}",
         ),
+    "enterADescription": MessageLookupByLibrary.simpleMessage(
+      "Введите описание",
+    ),
+    "enterAValidAmount": MessageLookupByLibrary.simpleMessage(
+      "Введите действительную сумму",
+    ),
+    "enterAnAmount": MessageLookupByLibrary.simpleMessage("Введите сумму"),
     "expense": MessageLookupByLibrary.simpleMessage("Расходы"),
     "expenseCategories": MessageLookupByLibrary.simpleMessage(
       "Категории расходов",
@@ -82,8 +103,13 @@ class MessageLookup extends MessageLookupByLibrary {
     "filterByCategory": MessageLookupByLibrary.simpleMessage(
       "Фильтр по категории",
     ),
+    "filterTransactions": MessageLookupByLibrary.simpleMessage(
+      "Фильтровать транзакции",
+    ),
     "filters": MessageLookupByLibrary.simpleMessage("Фильтры"),
     "guest": MessageLookupByLibrary.simpleMessage("Гость"),
+    "history": MessageLookupByLibrary.simpleMessage("История"),
+    "home": MessageLookupByLibrary.simpleMessage("Домой"),
     "income": MessageLookupByLibrary.simpleMessage("Доход"),
     "incomeCategories": MessageLookupByLibrary.simpleMessage(
       "Категории доходов",
@@ -102,6 +128,9 @@ class MessageLookup extends MessageLookupByLibrary {
         MessageLookupByLibrary.simpleMessage(
           "Данные для выбранных фильтров отсутствуют",
         ),
+    "noTransactionsFound": MessageLookupByLibrary.simpleMessage(
+      "Никаких транзакций обнаружено не было",
+    ),
     "noTransactionsYet": MessageLookupByLibrary.simpleMessage(
       "Транзакций пока нет.",
     ),
@@ -123,13 +152,22 @@ class MessageLookup extends MessageLookupByLibrary {
       "Недавние транзакции",
     ),
     "register": MessageLookupByLibrary.simpleMessage("Зарегистрироваться"),
+    "registeringUser": MessageLookupByLibrary.simpleMessage(
+      "Регистрирующийся пользователь...",
+    ),
+    "reports": MessageLookupByLibrary.simpleMessage("Отчеты"),
     "reportsCharts": MessageLookupByLibrary.simpleMessage("Отчеты и диаграммы"),
+    "searchTransactions": MessageLookupByLibrary.simpleMessage(
+      "Поиск транзакции",
+    ),
+    "selectCurrency": MessageLookupByLibrary.simpleMessage("Выберите валюту"),
     "selectEndDate": MessageLookupByLibrary.simpleMessage(
       "Выберите дату окончания",
     ),
     "selectStartDate": MessageLookupByLibrary.simpleMessage(
       "Выберите дату начала",
     ),
+    "settings": MessageLookupByLibrary.simpleMessage("Настройки"),
     "startSelectedstartdatetolocaltostringsplit0":
         MessageLookupByLibrary.simpleMessage(
           "Начало: \${selectedStartDate!.toLocal().toString().split(\' \')[0]}",
@@ -137,7 +175,14 @@ class MessageLookup extends MessageLookupByLibrary {
     "transactionActions": MessageLookupByLibrary.simpleMessage(
       "Действия транзакции",
     ),
+    "transactionHistory": MessageLookupByLibrary.simpleMessage(
+      "История транзакций",
+    ),
+    "type": MessageLookupByLibrary.simpleMessage("Тип"),
     "tyypeee": MessageLookupByLibrary.simpleMessage("Tyypeee"),
+    "updateTransaction": MessageLookupByLibrary.simpleMessage(
+      "Транзакция обновления",
+    ),
     "userAlreadyExistsOrRegistrationFailed":
         MessageLookupByLibrary.simpleMessage(
           "Пользователь уже существует или регистрация не удалась.",

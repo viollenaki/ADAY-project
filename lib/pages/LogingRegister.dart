@@ -169,7 +169,7 @@ class _LoginregisterState extends State<Loginregister> {
                                       );
                                     }
                                   });
-                                  print("Registering user...");
+                                  print(S.of(context).registeringUser);
                                 }
                               }
                             },
