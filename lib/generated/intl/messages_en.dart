@@ -23,6 +23,9 @@ class MessageLookup extends MessageLookupByLibrary {
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
     "account": MessageLookupByLibrary.simpleMessage("Account"),
+    "add": MessageLookupByLibrary.simpleMessage("Add"),
+    "addCategory": MessageLookupByLibrary.simpleMessage("Add Category"),
+    "addNewCategory": MessageLookupByLibrary.simpleMessage("Add New Category"),
     "alreadyHaveAnAccountLogin": MessageLookupByLibrary.simpleMessage(
       "Already have an account? Login",
     ),
@@ -40,12 +43,20 @@ class MessageLookup extends MessageLookupByLibrary {
     "ategory": MessageLookupByLibrary.simpleMessage("Сategory"),
     "balance": MessageLookupByLibrary.simpleMessage("Balance"),
     "cancel": MessageLookupByLibrary.simpleMessage("Cancel"),
+    "categories": MessageLookupByLibrary.simpleMessage("Categories"),
+    "categoryAddedSuccessfully": MessageLookupByLibrary.simpleMessage(
+      "Category added successfully",
+    ),
+    "categoryDeleted": MessageLookupByLibrary.simpleMessage("Category deleted"),
+    "categoryName": MessageLookupByLibrary.simpleMessage("Category Name"),
+    "categoryType": MessageLookupByLibrary.simpleMessage("Category Type"),
     "createAccount": MessageLookupByLibrary.simpleMessage("Create Account"),
     "delete": MessageLookupByLibrary.simpleMessage("Delete"),
     "deleteAll": MessageLookupByLibrary.simpleMessage("Delete All"),
     "deleteAllTransactions": MessageLookupByLibrary.simpleMessage(
       "Delete All Transactions",
     ),
+    "deleteCategory": MessageLookupByLibrary.simpleMessage("Delete Category"),
     "deleteTransaction": MessageLookupByLibrary.simpleMessage(
       "Delete Transaction",
     ),
@@ -54,12 +65,39 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "edit": MessageLookupByLibrary.simpleMessage("Edit"),
     "email": MessageLookupByLibrary.simpleMessage("Email"),
+    "endSelectedenddatetolocaltostringsplit0":
+        MessageLookupByLibrary.simpleMessage(
+          "End: \${selectedEndDate!.toLocal().toString().split(\' \')[0]}",
+        ),
+    "expense": MessageLookupByLibrary.simpleMessage("Expense"),
+    "expenseCategories": MessageLookupByLibrary.simpleMessage(
+      "Expense Categories",
+    ),
+    "expenseOverview": MessageLookupByLibrary.simpleMessage("Expense Overview"),
     "expenses": MessageLookupByLibrary.simpleMessage("Expenses"),
+    "filterByCategory": MessageLookupByLibrary.simpleMessage(
+      "Filter by Category",
+    ),
+    "filters": MessageLookupByLibrary.simpleMessage("Filters"),
     "guest": MessageLookupByLibrary.simpleMessage("Guest"),
     "income": MessageLookupByLibrary.simpleMessage("Income"),
+    "incomeCategories": MessageLookupByLibrary.simpleMessage(
+      "Income Categories",
+    ),
+    "incomeOverview": MessageLookupByLibrary.simpleMessage("Income Overview"),
     "language": MessageLookupByLibrary.simpleMessage("Language"),
     "login": MessageLookupByLibrary.simpleMessage("Login"),
     "logout": MessageLookupByLibrary.simpleMessage("Logout"),
+    "monthlySpendingTrends": MessageLookupByLibrary.simpleMessage(
+      "Monthly Spending Trends",
+    ),
+    "noDataAvailable": MessageLookupByLibrary.simpleMessage(
+      "No data available",
+    ),
+    "noDataAvailableForTheSelectedFilters":
+        MessageLookupByLibrary.simpleMessage(
+          "No data available for the selected filters",
+        ),
     "noTransactionsYet": MessageLookupByLibrary.simpleMessage(
       "No transactions yet.",
     ),
@@ -81,9 +119,19 @@ class MessageLookup extends MessageLookupByLibrary {
       "Recent Transactions",
     ),
     "register": MessageLookupByLibrary.simpleMessage("Register"),
+    "reportsCharts": MessageLookupByLibrary.simpleMessage("Reports & Charts"),
+    "selectEndDate": MessageLookupByLibrary.simpleMessage("Select End Date"),
+    "selectStartDate": MessageLookupByLibrary.simpleMessage(
+      "Select Start Date",
+    ),
+    "startSelectedstartdatetolocaltostringsplit0":
+        MessageLookupByLibrary.simpleMessage(
+          "Start: \${selectedStartDate!.toLocal().toString().split(\' \')[0]}",
+        ),
     "transactionActions": MessageLookupByLibrary.simpleMessage(
       "Transaction Actions",
     ),
+    "tyypeee": MessageLookupByLibrary.simpleMessage("Tyypeee"),
     "userAlreadyExistsOrRegistrationFailed":
         MessageLookupByLibrary.simpleMessage(
           "User already exists or registration failed.",

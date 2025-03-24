@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:personal_finance/database/database_helper.dart';
 import 'package:personal_finance/database/globals.dart' as globals;
+import 'package:personal_finance/generated/l10n.dart';
 
 class ReportsScreen extends StatefulWidget {
   const ReportsScreen({super.key});
@@ -107,8 +108,8 @@ class _ReportsScreenState extends State<ReportsScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text(
-          "Reports & Charts",
+        title: Text(
+          S.of(context).reportsCharts,
           style: TextStyle(
             color: Colors.white,
             fontSize: 22,
@@ -142,9 +143,9 @@ class _ReportsScreenState extends State<ReportsScreen> {
               ),
             );
           } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
-            return const Center(
+            return Center(
               child: Text(
-                "No data available",
+                S.of(context).noDataAvailable,
                 style: TextStyle(color: Colors.grey, fontSize: 16),
               ),
             );
@@ -170,8 +171,8 @@ class _ReportsScreenState extends State<ReportsScreen> {
                 const SizedBox(height: 20),
                 _buildChartCard(
                   title: selectedType == 'income'
-                      ? "Income Overview"
-                      : "Expense Overview",
+                      ? S.of(context).incomeOverview
+                      : S.of(context).expenseOverview,
                   child: categorySpending.isEmpty
                       ? _buildNoDataWidget()
                       : Column(
@@ -244,7 +245,7 @@ class _ReportsScreenState extends State<ReportsScreen> {
                 ),
                 const SizedBox(height: 20),
                 _buildChartCard(
-                  title: "Monthly Spending Trends",
+                  title: S.of(context).monthlySpendingTrends,
                   child: monthlySpending.isEmpty
                       ? _buildNoDataWidget()
                       : SizedBox(
@@ -440,8 +441,8 @@ class _ReportsScreenState extends State<ReportsScreen> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const Text(
-              "Filters",
+            Text(
+              S.of(context).filters,
               style: TextStyle(
                 fontSize: 16,
                 fontWeight: FontWeight.bold,
@@ -465,14 +466,14 @@ class _ReportsScreenState extends State<ReportsScreen> {
     return DropdownButtonFormField<String>(
       value: selectedType,
       decoration: InputDecoration(
-        labelText: "Tyypeee",
+        labelText: S.of(context).tyypeee,
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(8),
         ),
       ),
-      items: const [
-        DropdownMenuItem(value: 'expense', child: Text("Expense")),
-        DropdownMenuItem(value: 'income', child: Text("Income")),
+      items: [
+        DropdownMenuItem(value: 'expense', child: Text(S.of(context).expense)),
+        DropdownMenuItem(value: 'income', child: Text(S.of(context).income)),
       ],
       onChanged: (value) {
         setState(() {
@@ -506,8 +507,8 @@ class _ReportsScreenState extends State<ReportsScreen> {
             },
             child: Text(
               selectedStartDate == null
-                  ? "Select Start Date"
-                  : "Start: ${selectedStartDate!.toLocal().toString().split(' ')[0]}",
+                  ? S.of(context).selectStartDate
+                  : S.of(context).startSelectedstartdatetolocaltostringsplit0,
               style: const TextStyle(color: Colors.black87),
             ),
           ),
@@ -531,8 +532,8 @@ class _ReportsScreenState extends State<ReportsScreen> {
             },
             child: Text(
               selectedEndDate == null
-                  ? "Select End Date"
-                  : "End: ${selectedEndDate!.toLocal().toString().split(' ')[0]}",
+                  ? S.of(context).selectEndDate
+                  : S.of(context).endSelectedenddatetolocaltostringsplit0,
               style: const TextStyle(color: Colors.black87),
             ),
           ),
@@ -546,8 +547,8 @@ class _ReportsScreenState extends State<ReportsScreen> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const Text(
-          "Filter by Category",
+        Text(
+          S.of(context).filterByCategory,
           style: TextStyle(
             fontSize: 16,
             fontWeight: FontWeight.bold,
@@ -615,9 +616,9 @@ class _ReportsScreenState extends State<ReportsScreen> {
 
   // Widget to display when no data is available
   Widget _buildNoDataWidget() {
-    return const Center(
+    return Center(
       child: Text(
-        "No data available for the selected filters",
+        S.of(context).noDataAvailableForTheSelectedFilters,
         style: TextStyle(color: Colors.grey, fontSize: 16),
       ),
     );
