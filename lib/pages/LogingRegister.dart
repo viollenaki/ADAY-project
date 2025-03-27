@@ -1,26 +1,132 @@
 import 'package:flutter/material.dart';
 import 'package:personal_finance/database/database_helper.dart';
 import 'package:personal_finance/database/globals.dart';
-import 'package:personal_finance/generated/l10n.dart';
 import '../main.dart';
 
-class Loginregister extends StatefulWidget {
-  const Loginregister({super.key});
+class LoginRegisterScreen extends StatefulWidget {
+  const LoginRegisterScreen({super.key});
 
   @override
-  State<Loginregister> createState() => _LoginregisterState();
+  State<LoginRegisterScreen> createState() => _LoginRegisterScreenState();
 }
 
-class _LoginregisterState extends State<Loginregister> {
-  bool _isLogin = true; // Track if it's login or register page
-  bool _isPasswordVisible = false; // Track password visibility
+class _LoginRegisterScreenState extends State<LoginRegisterScreen> {
+  bool _isLogin = true;
+  bool _isPasswordVisible = false;
+  bool _isConfirmPasswordVisible = false;
+  bool _isLoading = false;
 
   final TextEditingController _usernameController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
-  final TextEditingController _emailController =
-      TextEditingController(); // For registration
+  final TextEditingController _confirmPasswordController = TextEditingController();
+  final TextEditingController _emailController = TextEditingController();
 
-  final _formKey = GlobalKey<FormState>(); // Form key for validation
+  final _formKey = GlobalKey<FormState>();
+
+  @override
+  void dispose() {
+    _usernameController.dispose();
+    _passwordController.dispose();
+    _confirmPasswordController.dispose();
+    _emailController.dispose();
+    super.dispose();
+  }
+
+  Future<void> _login() async {
+    if (!_formKey.currentState!.validate()) return;
+
+    setState(() => _isLoading = true);
+
+    try {
+      final dbHelper = DatabaseHelper();
+      final username = _usernameController.text.trim();
+      final password = _passwordController.text;
+
+      final user = await dbHelper.getUserByUsername(username);
+
+      if (user == null) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text('User not found')),
+        );
+        return;
+      }
+
+      final isValid = await dbHelper.validateUser(username, password);
+
+      if (!isValid) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text('Invalid password')),
+        );
+        return;
+      }
+
+      currentUsername = username;
+      Navigator.of(context).pushReplacement(
+        MaterialPageRoute(
+          builder: (context) => const MainNavigationScreen(),
+        ),
+      );
+    } catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Login failed')),
+      );
+    } finally {
+      if (mounted) {
+        setState(() => _isLoading = false);
+      }
+    }
+  }
+
+  Future<void> _register() async {
+    if (!_formKey.currentState!.validate()) return;
+
+    setState(() => _isLoading = true);
+
+    try {
+      final dbHelper = DatabaseHelper();
+      final username = _usernameController.text.trim();
+      final email = _emailController.text.trim();
+      final password = _passwordController.text;
+
+      final id = await dbHelper.insertUser(username, email, password);
+
+      if (id == -1) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text('Username already exists')),
+        );
+        return;
+      }
+
+      if (id == -2) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text('Email already exists')),
+        );
+        return;
+      }
+
+      if (id <= 0) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text('Registration failed')),
+        );
+        return;
+      }
+
+      currentUsername = username;
+      Navigator.of(context).pushReplacement(
+        MaterialPageRoute(
+          builder: (context) => const MainNavigationScreen(),
+        ),
+      );
+    } catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Registration failed')),
+      );
+    } finally {
+      if (mounted) {
+        setState(() => _isLoading = false);
+      }
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -49,7 +155,6 @@ class _LoginregisterState extends State<Loginregister> {
                     child: Column(
                       mainAxisSize: MainAxisSize.min,
                       children: [
-                        // App Logo or Title
                         const Icon(
                           Icons.account_circle,
                           size: 80,
@@ -57,7 +162,7 @@ class _LoginregisterState extends State<Loginregister> {
                         ),
                         const SizedBox(height: 16),
                         Text(
-                          _isLogin ? S.of(context).welcomeBack : S.of(context).createAccount,
+                          _isLogin ? 'Welcome Back' : 'Create Account',
                           style: const TextStyle(
                             fontSize: 24,
                             fontWeight: FontWeight.bold,
@@ -65,32 +170,36 @@ class _LoginregisterState extends State<Loginregister> {
                           ),
                         ),
                         const SizedBox(height: 20),
-                        // Username Field
+
                         TextFormField(
                           controller: _usernameController,
                           decoration: InputDecoration(
                             border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(8),
                             ),
-                            labelText: S.of(context).username,
+                            labelText: 'Username',
                             prefixIcon: const Icon(Icons.person),
                           ),
                           validator: (value) {
                             if (value == null || value.isEmpty) {
-                              return S.of(context).pleaseEnterAUsername;
+                              return 'Please enter a username';
+                            }
+                            if (value.length < 4) {
+                              return 'Username must be at least 4 characters';
                             }
                             return null;
                           },
                         ),
                         const SizedBox(height: 16),
-                        // Password Field
+
                         TextFormField(
                           controller: _passwordController,
                           obscureText: !_isPasswordVisible,
                           decoration: InputDecoration(
                             border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(8)),
-                            labelText: S.of(context).password,
+                              borderRadius: BorderRadius.circular(8),
+                            ),
+                            labelText: 'Password',
                             prefixIcon: const Icon(Icons.lock),
                             suffixIcon: IconButton(
                               icon: Icon(
@@ -107,72 +216,78 @@ class _LoginregisterState extends State<Loginregister> {
                           ),
                           validator: (value) {
                             if (value == null || value.isEmpty) {
-                              return S.of(context).pleaseEnterAPassword;
+                              return 'Please enter a password';
+                            }
+                            if (value.length < 6) {
+                              return 'Password must be at least 6 characters';
                             }
                             return null;
                           },
                         ),
                         const SizedBox(height: 16),
-                        // Email Field (for registration)
+
+                        if (!_isLogin)
+                          TextFormField(
+                            controller: _confirmPasswordController,
+                            obscureText: !_isConfirmPasswordVisible,
+                            decoration: InputDecoration(
+                              border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(8),
+                              ),
+                              labelText: 'Confirm Password',
+                              prefixIcon: const Icon(Icons.lock),
+                              suffixIcon: IconButton(
+                                icon: Icon(
+                                  _isConfirmPasswordVisible
+                                      ? Icons.visibility
+                                      : Icons.visibility_off,
+                                ),
+                                onPressed: () {
+                                  setState(() {
+                                    _isConfirmPasswordVisible = !_isConfirmPasswordVisible;
+                                  });
+                                },
+                              ),
+                            ),
+                            validator: !_isLogin ? (value) {
+                              if (value != _passwordController.text) {
+                                return 'Passwords do not match';
+                              }
+                              return null;
+                            } : null,
+                          ),
+                        if (!_isLogin) const SizedBox(height: 16),
+
                         if (!_isLogin)
                           TextFormField(
                             controller: _emailController,
+                            keyboardType: TextInputType.emailAddress,
                             decoration: InputDecoration(
                               border: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(8)),
-                              labelText: S.of(context).email,
+                                borderRadius: BorderRadius.circular(8),
+                              ),
+                              labelText: 'Email',
                               prefixIcon: const Icon(Icons.email),
                             ),
-                            validator: (value) {
+                            validator: !_isLogin ? (value) {
                               if (value == null || value.isEmpty) {
-                                return S.of(context).pleaseEnterAnEmail;
+                                return 'Please enter an email';
                               }
-                              if (!value.contains('@')) {
-                                return S.of(context).pleaseEnterAValidEmail;
+                              if (!RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$')
+                                  .hasMatch(value)) {
+                                return 'Please enter a valid email';
                               }
                               return null;
-                            },
+                            } : null,
                           ),
                         if (!_isLogin) const SizedBox(height: 16),
-                        // Login/Register Button
+
                         SizedBox(
                           width: double.infinity,
                           child: ElevatedButton(
-                            onPressed: () {
-                              if (_formKey.currentState!.validate()) {
-                                if (_isLogin) {
-                                  currentUsername = _usernameController.text;
-                                  // Navigate to home page (Login action)
-                                  Navigator.of(context).pushReplacement(
-                                    MaterialPageRoute(
-                                      builder: (context) =>
-                                          const MainNavigationScreen(),
-                                    ),
-                                  );
-                                } else {
-                                  final dbHelper = DatabaseHelper();
-                                  final name = _usernameController.text;
-                                  final email = _emailController.text;
-                                  final password = _passwordController.text;
-
-                                  dbHelper.insertUser(name, email, password).then((id) {
-                                    if (id > 0) {
-                                      currentUsername = name;
-                                      Navigator.of(context).pushReplacement(
-                                        MaterialPageRoute(
-                                          builder: (context) => const MainNavigationScreen(),
-                                        ),
-                                      );
-                                    } else {
-                                      ScaffoldMessenger.of(context).showSnackBar(
-                                        SnackBar(content: Text(S.of(context).userAlreadyExistsOrRegistrationFailed)),
-                                      );
-                                    }
-                                  });
-                                  print(S.of(context).registeringUser);
-                                }
-                              }
-                            },
+                            onPressed: _isLoading
+                                ? null
+                                : () => _isLogin ? _login() : _register(),
                             style: ElevatedButton.styleFrom(
                               padding: const EdgeInsets.symmetric(vertical: 16),
                               shape: RoundedRectangleBorder(
@@ -182,28 +297,36 @@ class _LoginregisterState extends State<Loginregister> {
                               ),
                               backgroundColor: Colors.deepPurple,
                             ),
-                            child: Text(
-                              _isLogin ? S.of(context).login : S.of(context).register,
+                            child: _isLoading
+                                ? const CircularProgressIndicator(
+                              color: Colors.white,
+                            )
+                                : Text(
+                              _isLogin ? 'Login' : 'Register',
                               style: const TextStyle(
-                                  fontSize: 18,
-                                  color: Color.fromARGB(255, 255, 255, 255),
-                                  fontWeight: FontWeight.bold),
+                                fontSize: 18,
+                                color: Colors.white,
+                                fontWeight: FontWeight.bold,
+                              ),
                             ),
                           ),
                         ),
                         const SizedBox(height: 16),
-                        // Toggle between Login and Register
+
                         TextButton(
-                          onPressed: () {
+                          onPressed: _isLoading
+                              ? null
+                              : () {
                             setState(() {
-                              _isLogin =
-                                  !_isLogin; // Toggle between Login and Register
+                              _isLogin = !_isLogin;
+                              _passwordController.clear();
+                              _confirmPasswordController.clear();
                             });
                           },
                           child: Text(
                             _isLogin
-                                ? S.of(context).dontHaveAnAccountRegister
-                                : S.of(context).alreadyHaveAnAccountLogin,
+                                ? 'Don\'t have an account? Register'
+                                : 'Already have an account? Login',
                             style: const TextStyle(color: Colors.deepPurple),
                           ),
                         ),
