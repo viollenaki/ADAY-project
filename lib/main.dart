@@ -158,7 +158,7 @@ class _MainNavigationScreenState extends State<MainNavigationScreen> {
                   child: Icon(
                     Icons.home_outlined,
                     color:
-                        _selectedIndex == 0 ? Colors.blueAccent : Colors.grey,
+                    _selectedIndex == 0 ? Colors.blueAccent : Colors.grey,
                   ),
                 ),
                 selectedIcon: Container(
@@ -172,7 +172,7 @@ class _MainNavigationScreenState extends State<MainNavigationScreen> {
                     color: Colors.blueAccent,
                   ),
                 ),
-                label: 'Home',
+                label: S.of(context).home,
               ),
               NavigationDestination(
                 icon: Container(
@@ -186,7 +186,7 @@ class _MainNavigationScreenState extends State<MainNavigationScreen> {
                   child: Icon(
                     Icons.history_outlined,
                     color:
-                        _selectedIndex == 1 ? Colors.purpleAccent : Colors.grey,
+                    _selectedIndex == 1 ? Colors.purpleAccent : Colors.grey,
                   ),
                 ),
                 selectedIcon: Container(
@@ -200,7 +200,7 @@ class _MainNavigationScreenState extends State<MainNavigationScreen> {
                     color: Colors.purpleAccent,
                   ),
                 ),
-                label: 'History',
+                label: S.of(context).history,
               ),
               NavigationDestination(
                 icon: Container(
@@ -214,7 +214,7 @@ class _MainNavigationScreenState extends State<MainNavigationScreen> {
                   child: Icon(
                     Icons.bar_chart_outlined,
                     color:
-                        _selectedIndex == 2 ? Colors.blueAccent : Colors.grey,
+                    _selectedIndex == 2 ? Colors.blueAccent : Colors.grey,
                   ),
                 ),
                 selectedIcon: Container(
@@ -228,7 +228,7 @@ class _MainNavigationScreenState extends State<MainNavigationScreen> {
                     color: Colors.blueAccent,
                   ),
                 ),
-                label: 'Reports',
+                label: S.of(context).reports,
               ),
               NavigationDestination(
                 icon: Container(
@@ -242,7 +242,7 @@ class _MainNavigationScreenState extends State<MainNavigationScreen> {
                   child: Icon(
                     Icons.settings_outlined,
                     color:
-                        _selectedIndex == 3 ? Colors.purpleAccent : Colors.grey,
+                    _selectedIndex == 3 ? Colors.purpleAccent : Colors.grey,
                   ),
                 ),
                 selectedIcon: Container(
@@ -256,7 +256,7 @@ class _MainNavigationScreenState extends State<MainNavigationScreen> {
                     color: Colors.purpleAccent,
                   ),
                 ),
-                label: 'Settings',
+                label: S.of(context).settings,
               ),
             ],
           ),

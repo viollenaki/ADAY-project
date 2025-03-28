@@ -28,9 +28,11 @@ class MessageLookup extends MessageLookupByLibrary {
     "addNewCategory": MessageLookupByLibrary.simpleMessage(
       "Жаңы категория кошуу",
     ),
+    "addTransaction": MessageLookupByLibrary.simpleMessage("Транзакция кошуу"),
     "alreadyHaveAnAccountLogin": MessageLookupByLibrary.simpleMessage(
       "Каттоо эсебиңиз барбы? Кирүү",
     ),
+    "amount": MessageLookupByLibrary.simpleMessage("Суммасы"),
     "areYouSureYouWantToDeleteAllTransactions":
         MessageLookupByLibrary.simpleMessage(
           "Бардык транзакцияларды чын эле жок кылгыңыз келеби?",
@@ -46,6 +48,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "balance": MessageLookupByLibrary.simpleMessage("Баланс"),
     "cancel": MessageLookupByLibrary.simpleMessage("Жокко чыгаруу"),
     "categories": MessageLookupByLibrary.simpleMessage("Категориялар"),
+    "category": MessageLookupByLibrary.simpleMessage("Категория"),
     "categoryAddedSuccessfully": MessageLookupByLibrary.simpleMessage(
       "Категория ийгиликтүү кошулду",
     ),
@@ -57,6 +60,8 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "categoryType": MessageLookupByLibrary.simpleMessage("Категориянын түрү"),
     "createAccount": MessageLookupByLibrary.simpleMessage("Эсеп түзүү"),
+    "darkMode": MessageLookupByLibrary.simpleMessage("Караңгы Режим"),
+    "date": MessageLookupByLibrary.simpleMessage("Дата"),
     "delete": MessageLookupByLibrary.simpleMessage("Жок кылуу"),
     "deleteAll": MessageLookupByLibrary.simpleMessage("Баарын жок кылуу"),
     "deleteAllTransactions": MessageLookupByLibrary.simpleMessage(
@@ -68,15 +73,31 @@ class MessageLookup extends MessageLookupByLibrary {
     "deleteTransaction": MessageLookupByLibrary.simpleMessage(
       "Транзакцияны жок кылуу",
     ),
+    "description": MessageLookupByLibrary.simpleMessage("Сүрөттөмө"),
+    "disabled": MessageLookupByLibrary.simpleMessage("Майыптар"),
     "dontHaveAnAccountRegister": MessageLookupByLibrary.simpleMessage(
       "Каттоо эсебиңиз жокпу? Каттоо",
     ),
     "edit": MessageLookupByLibrary.simpleMessage("Түзөтүү"),
+    "editTransaction": MessageLookupByLibrary.simpleMessage(
+      "Транзакцияны түзөтүү",
+    ),
     "email": MessageLookupByLibrary.simpleMessage("Электронная почта"),
+    "enableFingerprint": MessageLookupByLibrary.simpleMessage(
+      "Манжа Изин Иштетүү",
+    ),
+    "enabled": MessageLookupByLibrary.simpleMessage("Иштетилген"),
     "endSelectedenddatetolocaltostringsplit0":
         MessageLookupByLibrary.simpleMessage(
           "Аяктоо: \${selectedEndDate!.toLocal().toString().split(\' \')[0]}",
         ),
+    "enterADescription": MessageLookupByLibrary.simpleMessage(
+      "Сүрөттөмө киргизиңиз",
+    ),
+    "enterAValidAmount": MessageLookupByLibrary.simpleMessage(
+      "Жарактуу сумманы киргизиңиз",
+    ),
+    "enterAnAmount": MessageLookupByLibrary.simpleMessage("Сумманы киргизиңиз"),
     "expense": MessageLookupByLibrary.simpleMessage("Чыгым"),
     "expenseCategories": MessageLookupByLibrary.simpleMessage(
       "Чыгымдар категориялары",
@@ -88,7 +109,12 @@ class MessageLookup extends MessageLookupByLibrary {
     "filterByCategory": MessageLookupByLibrary.simpleMessage(
       "Категория боюнча чыпкалоо",
     ),
+    "filterTransactions": MessageLookupByLibrary.simpleMessage(
+      "Фильтрдик Бүтүмдөр",
+    ),
     "guest": MessageLookupByLibrary.simpleMessage("Конок"),
+    "history": MessageLookupByLibrary.simpleMessage("Тарых"),
+    "home": MessageLookupByLibrary.simpleMessage("Үй"),
     "income": MessageLookupByLibrary.simpleMessage("Киреше"),
     "incomeCategories": MessageLookupByLibrary.simpleMessage(
       "Киреше категориялары",
@@ -109,9 +135,13 @@ class MessageLookup extends MessageLookupByLibrary {
         MessageLookupByLibrary.simpleMessage(
           "Тандалган чыпкалар үчүн маалымат жок",
         ),
+    "noTransactionsFound": MessageLookupByLibrary.simpleMessage(
+      "Эч кандай бүтүмдөр табылган жок",
+    ),
     "noTransactionsYet": MessageLookupByLibrary.simpleMessage(
       "Азырынча транзакциялар жок.",
     ),
+    "other": MessageLookupByLibrary.simpleMessage("Башка"),
     "password": MessageLookupByLibrary.simpleMessage("Купуя сөз"),
     "personalFinance": MessageLookupByLibrary.simpleMessage("Жеке каржы"),
     "pleaseEnterAPassword": MessageLookupByLibrary.simpleMessage(
@@ -130,15 +160,24 @@ class MessageLookup extends MessageLookupByLibrary {
       "Акыркы транзакциялар",
     ),
     "register": MessageLookupByLibrary.simpleMessage("Каттоо"),
+    "registeringUser": MessageLookupByLibrary.simpleMessage(
+      "Колдонуучуну каттоо...",
+    ),
+    "reports": MessageLookupByLibrary.simpleMessage("Отчеттор"),
     "reportsCharts": MessageLookupByLibrary.simpleMessage(
       "Отчёттор жана диаграммалар",
     ),
+    "searchTransactions": MessageLookupByLibrary.simpleMessage(
+      "Издөө Операциялары",
+    ),
+    "selectCurrency": MessageLookupByLibrary.simpleMessage("Акча Тандоо"),
     "selectEndDate": MessageLookupByLibrary.simpleMessage(
       "Аяктуу датаны тандоо",
     ),
     "selectStartDate": MessageLookupByLibrary.simpleMessage(
       "Баштоо күнүн тандоо",
     ),
+    "settings": MessageLookupByLibrary.simpleMessage("Орнотуулар"),
     "startSelectedstartdatetolocaltostringsplit0":
         MessageLookupByLibrary.simpleMessage(
           "Старт: \${selectedStartDate!.toLocal().toString().split(\' \')[0]}",
@@ -146,7 +185,14 @@ class MessageLookup extends MessageLookupByLibrary {
     "transactionActions": MessageLookupByLibrary.simpleMessage(
       "Транзакция аракеттери",
     ),
-    "tyypeee": MessageLookupByLibrary.simpleMessage("Tyypeee"),
+    "transactionHistory": MessageLookupByLibrary.simpleMessage(
+      "Транзакциянын Тарыхы",
+    ),
+    "type": MessageLookupByLibrary.simpleMessage("Түрү"),
+    "tyypeee": MessageLookupByLibrary.simpleMessage("Түрү"),
+    "updateTransaction": MessageLookupByLibrary.simpleMessage(
+      "Жаңыртуу Бүтүмү",
+    ),
     "userAlreadyExistsOrRegistrationFailed":
         MessageLookupByLibrary.simpleMessage(
           "Колдонуучу мурунтан эле бар же каттоодон өткөн жок.",

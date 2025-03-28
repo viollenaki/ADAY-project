@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:personal_finance/database/globals.dart' as globals;
+import 'package:personal_finance/generated/l10n.dart';
 
 class SettingsScreen extends StatefulWidget {
   const SettingsScreen({super.key});
@@ -36,8 +37,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-  title: const Text(
-    'Settings',
+  title: Text(
+    S.of(context).settings,
     style: TextStyle(
       color: Colors.white,
       fontSize: 22,
@@ -67,8 +68,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
               shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(12)),
               child: SwitchListTile.adaptive(
-                title: const Text('Dark Mode', style: TextStyle(fontSize: 16)),
-                subtitle: Text(_isDarkMode ? 'Enabled' : 'Disabled'),
+                title: Text(S.of(context).darkMode, style: TextStyle(fontSize: 16)),
+                subtitle: Text(_isDarkMode ? S.of(context).enabled : S.of(context).disabled),
                 value: _isDarkMode,
                 onChanged: (value) => _toggleTheme(),
                 secondary:
@@ -83,7 +84,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
             ListTile(
               leading: const Icon(Icons.attach_money, color: Colors.deepPurple),
               title:
-                  const Text('Select Currency', style: TextStyle(fontSize: 16)),
+                  Text(S.of(context).selectCurrency, style: TextStyle(fontSize: 16)),
               subtitle: DropdownButtonFormField<String>(
                 value: _selectedCurrency,
                 onChanged: _selectCurrency,
@@ -112,9 +113,9 @@ class _SettingsScreenState extends State<SettingsScreen> {
               shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(12)),
               child: SwitchListTile.adaptive(
-                title: const Text('Enable Fingerprint',
+                title: Text(S.of(context).enableFingerprint,
                     style: TextStyle(fontSize: 16)),
-                subtitle: Text(_isFingerprintEnabled ? 'Enabled' : 'Disabled'),
+                subtitle: Text(_isFingerprintEnabled ? S.of(context).enabled : S.of(context).disabled),
                 value: _isFingerprintEnabled,
                 onChanged: _toggleFingerprint,
                 secondary:
