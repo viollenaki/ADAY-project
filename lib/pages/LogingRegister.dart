@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:personal_finance/database/database_helper.dart';
 import 'package:personal_finance/database/globals.dart';
+import 'package:personal_finance/database/globals.dart' as globals;
 import '../main.dart';
 
 class LoginRegisterScreen extends StatefulWidget {
@@ -18,7 +19,8 @@ class _LoginRegisterScreenState extends State<LoginRegisterScreen> {
 
   final TextEditingController _usernameController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
-  final TextEditingController _confirmPasswordController = TextEditingController();
+  final TextEditingController _confirmPasswordController =
+      TextEditingController();
   final TextEditingController _emailController = TextEditingController();
 
   final _formKey = GlobalKey<FormState>();
@@ -32,50 +34,52 @@ class _LoginRegisterScreenState extends State<LoginRegisterScreen> {
     super.dispose();
   }
 
-  Future<void> _login() async {
-    if (!_formKey.currentState!.validate()) return;
+Future<void> _login() async {
+  if (!_formKey.currentState!.validate()) return;
 
-    setState(() => _isLoading = true);
+  setState(() => _isLoading = true);
 
-    try {
-      final dbHelper = DatabaseHelper();
-      final username = _usernameController.text.trim();
-      final password = _passwordController.text;
-
-      final user = await dbHelper.getUserByUsername(username);
-
-      if (user == null) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text('User not found')),
-        );
-        return;
-      }
-
-      final isValid = await dbHelper.validateUser(username, password);
-
-      if (!isValid) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text('Invalid password')),
-        );
-        return;
-      }
-
-      currentUsername = username;
-      Navigator.of(context).pushReplacement(
-        MaterialPageRoute(
-          builder: (context) => const MainNavigationScreen(),
-        ),
-      );
-    } catch (e) {
+  try {
+    final username = _usernameController.text.trim();
+    final password = _passwordController.text;
+    
+    // Получаем пользователя из базы
+    final dbHelper = DatabaseHelper(); // Создаем экземпляр
+    final user = await dbHelper.getUserByUsername(username); // Правильный вызов
+    
+    if (user == null) {
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Login failed')),
+        const SnackBar(content: Text('Пользователь не найден')),
       );
-    } finally {
-      if (mounted) {
-        setState(() => _isLoading = false);
-      }
+      return;
+    }
+
+    // Проверяем пароль (если хешируешь, добавь хеширование здесь)
+    if (user['password'] != password) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Неверный пароль')),
+      );
+      return;
+    }
+
+    print('Trying to login user: $username');
+    print('User from DB: ${user?.toString()}');
+    // Сохраняем ID пользователя
+    globals.currentUserId = user['id'] as int;
+    
+    Navigator.of(context).pushReplacement(
+      MaterialPageRoute(builder: (context) => MainNavigationScreen()),
+    );
+  } catch (e) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(content: Text('Ошибка входа: $e')),
+    );
+  } finally {
+    if (mounted) {
+      setState(() => _isLoading = false);
     }
   }
+}
 
   Future<void> _register() async {
     if (!_formKey.currentState!.validate()) return;
@@ -104,22 +108,17 @@ class _LoginRegisterScreenState extends State<LoginRegisterScreen> {
         return;
       }
 
-      if (id <= 0) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text('Registration failed')),
+      globals.currentUserId = id;
+      if (mounted) {
+        Navigator.of(context).pushReplacement(
+          MaterialPageRoute(
+            builder: (context) => const MainNavigationScreen(),
+          ),
         );
-        return;
       }
-
-      currentUsername = username;
-      Navigator.of(context).pushReplacement(
-        MaterialPageRoute(
-          builder: (context) => const MainNavigationScreen(),
-        ),
-      );
     } catch (e) {
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Registration failed')),
+        SnackBar(content: Text('Error: ${e.toString()}')),
       );
     } finally {
       if (mounted) {
@@ -170,7 +169,6 @@ class _LoginRegisterScreenState extends State<LoginRegisterScreen> {
                           ),
                         ),
                         const SizedBox(height: 20),
-
                         TextFormField(
                           controller: _usernameController,
                           decoration: InputDecoration(
@@ -191,7 +189,6 @@ class _LoginRegisterScreenState extends State<LoginRegisterScreen> {
                           },
                         ),
                         const SizedBox(height: 16),
-
                         TextFormField(
                           controller: _passwordController,
                           obscureText: !_isPasswordVisible,
@@ -225,7 +222,6 @@ class _LoginRegisterScreenState extends State<LoginRegisterScreen> {
                           },
                         ),
                         const SizedBox(height: 16),
-
                         if (!_isLogin)
                           TextFormField(
                             controller: _confirmPasswordController,
@@ -244,20 +240,22 @@ class _LoginRegisterScreenState extends State<LoginRegisterScreen> {
                                 ),
                                 onPressed: () {
                                   setState(() {
-                                    _isConfirmPasswordVisible = !_isConfirmPasswordVisible;
+                                    _isConfirmPasswordVisible =
+                                        !_isConfirmPasswordVisible;
                                   });
                                 },
                               ),
                             ),
-                            validator: !_isLogin ? (value) {
-                              if (value != _passwordController.text) {
-                                return 'Passwords do not match';
-                              }
-                              return null;
-                            } : null,
+                            validator: !_isLogin
+                                ? (value) {
+                                    if (value != _passwordController.text) {
+                                      return 'Passwords do not match';
+                                    }
+                                    return null;
+                                  }
+                                : null,
                           ),
                         if (!_isLogin) const SizedBox(height: 16),
-
                         if (!_isLogin)
                           TextFormField(
                             controller: _emailController,
@@ -269,19 +267,21 @@ class _LoginRegisterScreenState extends State<LoginRegisterScreen> {
                               labelText: 'Email',
                               prefixIcon: const Icon(Icons.email),
                             ),
-                            validator: !_isLogin ? (value) {
-                              if (value == null || value.isEmpty) {
-                                return 'Please enter an email';
-                              }
-                              if (!RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$')
-                                  .hasMatch(value)) {
-                                return 'Please enter a valid email';
-                              }
-                              return null;
-                            } : null,
+                            validator: !_isLogin
+                                ? (value) {
+                                    if (value == null || value.isEmpty) {
+                                      return 'Please enter an email';
+                                    }
+                                    if (!RegExp(
+                                            r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$')
+                                        .hasMatch(value)) {
+                                      return 'Please enter a valid email';
+                                    }
+                                    return null;
+                                  }
+                                : null,
                           ),
                         if (!_isLogin) const SizedBox(height: 16),
-
                         SizedBox(
                           width: double.infinity,
                           child: ElevatedButton(
@@ -299,30 +299,29 @@ class _LoginRegisterScreenState extends State<LoginRegisterScreen> {
                             ),
                             child: _isLoading
                                 ? const CircularProgressIndicator(
-                              color: Colors.white,
-                            )
+                                    color: Colors.white,
+                                  )
                                 : Text(
-                              _isLogin ? 'Login' : 'Register',
-                              style: const TextStyle(
-                                fontSize: 18,
-                                color: Colors.white,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
+                                    _isLogin ? 'Login' : 'Register',
+                                    style: const TextStyle(
+                                      fontSize: 18,
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
                           ),
                         ),
                         const SizedBox(height: 16),
-
                         TextButton(
                           onPressed: _isLoading
                               ? null
                               : () {
-                            setState(() {
-                              _isLogin = !_isLogin;
-                              _passwordController.clear();
-                              _confirmPasswordController.clear();
-                            });
-                          },
+                                  setState(() {
+                                    _isLogin = !_isLogin;
+                                    _passwordController.clear();
+                                    _confirmPasswordController.clear();
+                                  });
+                                },
                           child: Text(
                             _isLogin
                                 ? 'Don\'t have an account? Register'

@@ -90,16 +90,21 @@ class _HomeScreenState extends State<HomeScreen> {
     return currency;
   }
 
-  void _getEmailOnce() async {
-    if (globals.currentUsername != null) {
-      final email = await dbHelper.getEmailByUsername(globals.currentUsername!);
-      if (email != null) {
+void _getEmailOnce() async {
+  if (globals.currentUserId != null) {
+    try {
+      final user = await dbHelper.getUserById(globals.currentUserId!);
+      final email = await dbHelper.getEmailByUsername(user['username']);
+      if (email != null && mounted) {
         setState(() {
           userEmail = email;
         });
       }
+    } catch (e) {
+      debugPrint('Error getting user email: $e');
     }
   }
+}
 
   void _fetchCurrencyRates() async {
     try {
@@ -309,7 +314,7 @@ class _HomeScreenState extends State<HomeScreen> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                   Padding(
+                  Padding(
                     padding: EdgeInsets.only(left: 16.0, bottom: 8.0),
                     child: Text(
                       S.of(context).recentTransactions,
@@ -530,7 +535,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 Icon(Icons.account_circle, size: 50, color: Colors.white),
                 SizedBox(height: 10),
                 Text(
-                  globals.currentUsername ?? S.of(context).guest,
+                  '${globals.currentUserId ?? S.of(context).guest}',
                   style: TextStyle(color: Colors.white, fontSize: 18),
                 ),
                 Text(

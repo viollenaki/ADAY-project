@@ -8,15 +8,19 @@ import 'pages/ReportsScreen.dart';
 import 'pages/SettingsScreen.dart';
 import 'pages/TransactionHistoryScreen.dart'; // Import the MainNavigationScreen
 
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  final dbHelper = DatabaseHelper();
-  //await dbHelper.deleteDatabaseFile();
+  
   try {
-    await dbHelper.database;
+    print('Initializing database...');
+    final dbHelper = DatabaseHelper();
+    await dbHelper.initDatabase();
+    print('Database initialized successfully');
   } catch (e) {
-    print("Error initializing database: $e");
+    print('Error initializing database: $e');
   }
+  
   runApp(const MyApp());
 }
 

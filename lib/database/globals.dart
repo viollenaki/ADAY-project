@@ -1,5 +1,9 @@
 // Текущий пользователь
-String? currentUsername;
+// String? currentUsername;
+
+// Вместо currentUsername в globals.dart
+int? currentUserId;  // Изменить тип
+String? currentUserToken; // Добавить для будущей аутентификации
 
 // Текущая валюта
 String currentCurrency = 'KGS';
